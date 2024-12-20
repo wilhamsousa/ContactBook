@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35514.174 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uex.ContactBook.Domain", "Uex.ContactBook.Domain\Uex.ContactBook.Domain.csproj", "{1DCB2A81-57BF-4A18-BF2F-E641BD9148E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uex.ContactBook.Infra", "Uex.ContactBook.Infra\Uex.ContactBook.Infra.csproj", "{1827EB7C-4201-4BB3-B252-755EAEC3823D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uex.ContactBook.Tests", "Uex.ContactBook.Tests\Uex.ContactBook.Tests.csproj", "{AA396096-34E1-4843-8D6E-58871EF0556F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uex.ContactBook.Application", "Uex.ContactBook.Application\Uex.ContactBook.Application.csproj", "{94181248-E487-450D-A253-CCDE37E207A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uex.ContactBook.Api", "Uex.ContactBook.Api\Uex.ContactBook.Api.csproj", "{08D07E04-48ED-474D-880D-D434B2AB7D86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DCB2A81-57BF-4A18-BF2F-E641BD9148E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DCB2A81-57BF-4A18-BF2F-E641BD9148E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DCB2A81-57BF-4A18-BF2F-E641BD9148E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DCB2A81-57BF-4A18-BF2F-E641BD9148E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1827EB7C-4201-4BB3-B252-755EAEC3823D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1827EB7C-4201-4BB3-B252-755EAEC3823D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1827EB7C-4201-4BB3-B252-755EAEC3823D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1827EB7C-4201-4BB3-B252-755EAEC3823D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA396096-34E1-4843-8D6E-58871EF0556F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA396096-34E1-4843-8D6E-58871EF0556F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA396096-34E1-4843-8D6E-58871EF0556F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA396096-34E1-4843-8D6E-58871EF0556F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94181248-E487-450D-A253-CCDE37E207A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94181248-E487-450D-A253-CCDE37E207A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94181248-E487-450D-A253-CCDE37E207A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94181248-E487-450D-A253-CCDE37E207A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08D07E04-48ED-474D-880D-D434B2AB7D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08D07E04-48ED-474D-880D-D434B2AB7D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08D07E04-48ED-474D-880D-D434B2AB7D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08D07E04-48ED-474D-880D-D434B2AB7D86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
