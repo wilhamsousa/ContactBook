@@ -22,7 +22,8 @@ namespace Uex.ContactBook.Application.Services
 
         public async Task<User> CreateAsync(UserCreateRequest param)
         {
-            var newUser = new User(param.UserName);
+            var newUser = param.Adapt<User>();
+
             AddNotifications(newUser.ValidationResult);
 
             if (HasNotifications)

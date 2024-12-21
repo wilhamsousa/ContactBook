@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Uex.ContactBook.Infra.Repositories.Context;
 
@@ -11,9 +12,11 @@ using Uex.ContactBook.Infra.Repositories.Context;
 namespace Uex.ContactBook.Infra.Migrations
 {
     [DbContext(typeof(ContactBookContext))]
-    partial class ContactBookContextModelSnapshot : ModelSnapshot
+    [Migration("20241221143547_userConfig")]
+    partial class userConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,12 +36,12 @@ namespace Uex.ContactBook.Infra.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("Cep")
+                    b.Property<string>("CEP")
                         .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
-                    b.Property<string>("Cpf")
+                    b.Property<string>("CPF")
                         .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
