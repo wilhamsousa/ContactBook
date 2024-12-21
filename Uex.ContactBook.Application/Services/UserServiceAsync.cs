@@ -41,7 +41,7 @@ namespace Uex.ContactBook.Application.Services
         {
             var user = await _userRepository.GetByUserNameAsync(userName);
 
-            if (user == null)
+            if (user != null)
                 AddValidationFailure(UserMessage.USER_USERNAME_ALREADY_EXISTS);
         }
 

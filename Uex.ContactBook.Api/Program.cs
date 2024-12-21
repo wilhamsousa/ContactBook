@@ -32,7 +32,6 @@ internal class Program
         logger.LogInformation("DefaultConnection: " + builder.Configuration.GetConnectionString("DefaultConnection"));
 
         builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
-        //            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);        
 
         var app = builder.Build();
         
