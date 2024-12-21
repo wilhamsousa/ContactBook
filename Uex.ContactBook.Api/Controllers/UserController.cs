@@ -53,20 +53,9 @@ namespace Uex.ContactBook.Api.Controllers
         {
             try
             {
-                var requestValidator = new UserCreateRequestValidator();
-                var requestValidatorResult = requestValidator.Validate(param);
-                if (!requestValidatorResult.IsValid)
-                {
-                    AddNotifications(requestValidatorResult);
-                    return CreateResult(null, "Erro ao inserir registro");
-                }
-
                 var entity = await _userService.CreateAsync(param);
-                if (!requestValidatorResult.IsValid)
-                {
-                    AddNotifications(requestValidatorResult);
-                    return CreateResult(null, "Erro ao inserir registro");
-                }
+                if (!entity.Valid)
+                    return CreateResult("Ao inserir usuário", "Erro ao inserir usuário");
 
                 var response = entity.Adapt<UserCreateResponse>();
                 return CreateResult(response);

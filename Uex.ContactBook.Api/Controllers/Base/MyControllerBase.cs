@@ -2,7 +2,6 @@
 using Uex.ContactBook.Domain.Notification;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Collections.Generic;
 
 namespace Uex.ContactBook.Api.Controllers.Base
 {

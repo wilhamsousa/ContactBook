@@ -14,13 +14,10 @@ namespace Uex.ContactBook.Domain.Model.Entities
         public string Cep { get; set; }
         public string GeographicalPosition { get; set; }
 
-        public User() { }
-
-        //public User(string userName)
-        //{
-        //    UserName = userName;
-        //    Validate(this, new UserValidator());
-        //}
+        public User() 
+        {
+            Validate(this, new UserValidator());
+        }
     }
 
     public static class UserMessage

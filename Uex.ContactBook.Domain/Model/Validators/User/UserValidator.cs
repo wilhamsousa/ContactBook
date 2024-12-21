@@ -8,9 +8,10 @@ namespace Uex.ContactBook.Domain.Model.Validators
         public UserValidator()
         {
             RuleFor(entity => entity.UserName)
-                .NotNull()
                 .NotEmpty()
-                .WithMessage("Usuário não preenchido.");
+                .WithMessage("Usuário não preenchido.")
+                .MinimumLength(10)
+                .WithMessage("Usuário deve conter pelo menos 10 dígitos.");
         }
     }
 }
