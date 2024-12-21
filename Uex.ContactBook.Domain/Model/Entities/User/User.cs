@@ -1,5 +1,4 @@
 ﻿using Uex.ContactBook.Domain.Model.Base;
-using Uex.ContactBook.Domain.Model.Enums;
 using Uex.ContactBook.Domain.Model.Validators;
 
 namespace Uex.ContactBook.Domain.Model.Entities
@@ -16,8 +15,10 @@ namespace Uex.ContactBook.Domain.Model.Entities
 
         public User() 
         {
-            Validate(this, new UserValidator());
+            
         }
+
+        public void Validate() => Validate(this, new UserValidator());
     }
 
     public static class UserMessage

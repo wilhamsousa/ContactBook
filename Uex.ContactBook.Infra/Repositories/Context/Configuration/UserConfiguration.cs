@@ -40,7 +40,7 @@ namespace Uex.ContactBook.Infra.Repositories.Context.Configuration
             builder.Entity<User>()
                 .Property(b => b.Cep)
                 .IsRequired()
-                .HasMaxLength(8);
+                .HasMaxLength(9);
 
             builder.Entity<User>()
                 .Property(b => b.GeographicalPosition)
