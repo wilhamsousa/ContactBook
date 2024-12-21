@@ -17,7 +17,7 @@ namespace Uex.ContactBook.Api.Controllers.Base
             _notificationContext = notificationContext;
         }
 
-        protected ActionResult CreateResult(object responseObject, string errorTitle)
+        protected ActionResult CreateResult(object responseObject, string errorTitle = null)
         {
             if (_notificationContext.HasNotifications)
             {
@@ -40,11 +40,6 @@ namespace Uex.ContactBook.Api.Controllers.Base
             
             return Ok(responseObject);
         }
-
-        //protected ActionResult CreateResult(IEnumerable<object> responseObject) =>
-        //    responseObject == null || !responseObject.Any() ? NotFound("Registro não encontrado") : Ok(responseObject);
-
-        //protected ActionResult CreateResult() => Ok();
 
         protected void AddValidationFailure(string message)
         {

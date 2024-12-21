@@ -4,6 +4,7 @@ using Uex.ContactBook.Domain.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Uex.ContactBook.Domain.Interfaces;
 using Uex.ContactBook.Domain.Model.Validators;
+using Mapster;
 
 namespace Uex.ContactBook.Api.Controllers
 {
@@ -60,8 +61,15 @@ namespace Uex.ContactBook.Api.Controllers
                     return CreateResult(null, "Erro ao inserir registro");
                 }
 
-                var response = await _userService.CreateAsync(param);
-                return CreateResult(response, "Erro ao inserir registro");
+                var entity = await _userService.CreateAsync(param);
+                if (!requestValidatorResult.IsValid)
+                {
+                    AddNotifications(requestValidatorResult);
+                    return CreateResult(null, "Erro ao inserir registro");
+                }
+
+                var response = entity.Adapt<UserCreateResponse>();
+                return CreateResult(response);
             }
             catch (Exception ex)
             {
