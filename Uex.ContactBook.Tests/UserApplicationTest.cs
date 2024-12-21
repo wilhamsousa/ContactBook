@@ -17,6 +17,8 @@ namespace Uex.ContactBook.Tests
 
         private readonly Guid userId1 = Guid.Parse("8ab7a28f-3526-4abd-8567-7dd42840cbf7");
         private readonly string userName1 = "Usuário 1";
+        private readonly string validEmail1 = "email@dominio.com";
+        private readonly string invalidEmail1 = "invalidemail";
 
         public UserApplicationTest(ITestOutputHelper output) : base(output)
         {
@@ -40,11 +42,11 @@ namespace Uex.ContactBook.Tests
         public void CreateOk()
         {
             CreateSetup(
-                createUserResult: new User(userName1),
+                createUserResult: new User(userName1, validEmail1),
                 userResult: null
             );
 
-            var param = new UserCreateRequest(userName1);
+            var param = new UserCreateRequest(userName1, validEmail1);
             var result = _userServiceAsync.CreateAsync(param).Result;
             Assert.True(result.Valid);
         }
@@ -53,11 +55,11 @@ namespace Uex.ContactBook.Tests
         public void UserNameAlreadyExists()
         {
             CreateSetup(
-                createUserResult: new User(userName1),
-                userResult: new User(userName1)
+                createUserResult: new User(userName1, validEmail1),
+                userResult: new User(userName1, validEmail1)
             );
 
-            var param = new UserCreateRequest(userName1);
+            var param = new UserCreateRequest(userName1, validEmail1);
             var result = _userServiceAsync.CreateAsync(param).Result;
             Assert.Null(result);
             Assert.True(_notificationContext.Notifications.Any(x => x.Message == UserMessage.USER_USERNAME_ALREADY_EXISTS));

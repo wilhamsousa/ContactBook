@@ -7,15 +7,13 @@ namespace Uex.ContactBook.Domain.Model.Entities
     {        
         public string UserName { get; set; }
         public string Email { get; set; }
-        public string Cpf { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
-        public string Cep { get; set; }
-        public string GeographicalPosition { get; set; }
 
-        public User() 
+        public User() { }
+
+        public User(string userName, string email) 
         {
-            
+            UserName = userName;
+            Email = email;
         }
 
         public void Validate() => Validate(this, new UserValidator());

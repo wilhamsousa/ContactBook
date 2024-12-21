@@ -1,6 +1,7 @@
 ﻿using Uex.ContactBook.Domain.Model.Entities;
 using Uex.ContactBook.Infra.Repositories.Context.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Uex.ContactBook.Infra.Repositories.Context.Configuration.Entities;
 
 namespace Uex.ContactBook.Infra.Repositories.Context
 {
