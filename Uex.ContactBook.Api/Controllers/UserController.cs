@@ -68,5 +68,20 @@ namespace Uex.ContactBook.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public virtual async Task<ActionResult> Delete(Guid id)
+        {
+            var user = await _userService.GetAsync(id);
+            if (user == null)
+            {
+                AddValidationFailure("Usuário não encontrado para excluir.");
+                return CreateResult(null, "Erro ao excluir registro");
+            }
+
+            await _userService.DeleteAsync(id);
+            return CreateResult(null, "Erro ao excluir registro");
+        }
     }
 }

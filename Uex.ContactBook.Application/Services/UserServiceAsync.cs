@@ -57,6 +57,17 @@ namespace Uex.ContactBook.Application.Services
             var entity = await _userRepository.GetUserAsync();
             var model = entity.Adapt<IEnumerable<UserGetAllResponse>>();
             return model;
-        }        
+        }
+
+        public async Task<User> GetByUserNameAsync(string userName)
+        {
+            var entity = await _userRepository.GetByUserNameAsync(userName);
+            return entity;
+        }
+
+        public virtual async Task DeleteAsync(Guid id)
+        {
+            await _userRepository.DeleteAsync(id);
+        }
     }
 }
