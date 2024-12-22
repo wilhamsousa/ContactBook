@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Uex.ContactBook.Infra.Repositories.Context;
 
@@ -11,9 +12,11 @@ using Uex.ContactBook.Infra.Repositories.Context;
 namespace Uex.ContactBook.Infra.Migrations
 {
     [DbContext(typeof(ContactBookContext))]
-    partial class ContactBookContextModelSnapshot : ModelSnapshot
+    [Migration("20241222180506_password2")]
+    partial class password2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

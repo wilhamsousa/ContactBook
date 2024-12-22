@@ -27,10 +27,16 @@ namespace Uex.ContactBook.Application.Services
 
         public virtual async Task<LoginResponse> LoginAsync(LoginRequest param)
         {
-            var user = await _userRepository.GetByUserNameAsync(param.UserName);
+            var user = await _userRepository.GetByEmailAsync(param.Email);
             if (user == null)
             {
-                AddValidationFailure("Usuário não encontrado.");
+                AddValidationFailure("Usuário ou senha inválidos.");
+                return new LoginResponse();
+            }
+
+            if (!user.Password.Equals(param.Password))
+            {
+                AddValidationFailure("Usuário ou senha inválidos.");
                 return new LoginResponse();
             }
 

@@ -18,6 +18,12 @@ namespace Uex.ContactBook.Domain.Model.Validators
                 .WithMessage("Email não preenchido.")
                 .EmailAddress()
                 .WithMessage("Email inválido.");
+
+            RuleFor(entity => entity.Password)
+                .NotEmpty()
+                .WithMessage("Senha não preenchida.")
+                .MinimumLength(6)
+                .WithMessage("Senha deve conter pelo menos 6 dígitos.");
         }
     }
 }

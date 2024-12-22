@@ -2,6 +2,7 @@
 {
     public readonly record struct UserCreateRequest(
         string UserName,
-        string Email
+        string Email,
+        string Password
     );
 }

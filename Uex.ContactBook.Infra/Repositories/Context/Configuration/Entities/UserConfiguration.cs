@@ -25,6 +25,11 @@ namespace Uex.ContactBook.Infra.Repositories.Context.Configuration.Entities
                 .Property(b => b.Email)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            builder.Entity<User>()
+                .Property(b => b.Password)
+                .IsRequired()
+                .HasMaxLength(100);
         }
     }
 }
