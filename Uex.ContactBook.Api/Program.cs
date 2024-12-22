@@ -18,7 +18,7 @@ internal class Program
         builder.Services.AddControllers();
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwagger();
 
         builder.Services.AddDbContextPool<ContactBookContext>(
             options => options

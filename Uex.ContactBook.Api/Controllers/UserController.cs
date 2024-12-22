@@ -24,6 +24,11 @@ namespace Uex.ContactBook.Api.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// Get User Data By ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id:guid}")]
         public async Task<ActionResult> Get(Guid id)
@@ -32,6 +37,10 @@ namespace Uex.ContactBook.Api.Controllers
             return CreateResult(response, "Erro");
         }
 
+        /// <summary>
+        /// Get all users data
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("getall")]
         public async Task<ActionResult> GetAll()
@@ -47,6 +56,11 @@ namespace Uex.ContactBook.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Create user
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("create")]
         public async Task<ActionResult> Create(UserCreateRequest param)
@@ -66,6 +80,11 @@ namespace Uex.ContactBook.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id:guid}")]
         public virtual async Task<ActionResult> Delete(Guid id)

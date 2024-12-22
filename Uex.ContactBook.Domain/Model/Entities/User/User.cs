@@ -22,6 +22,7 @@ namespace Uex.ContactBook.Domain.Model.Entities
     public static class UserMessage
     {
         public const string
-            USER_USERNAME_ALREADY_EXISTS = "Usuário já cadastrado.";
+            USER_USERNAME_ALREADY_EXISTS = "Usuário já cadastrado.",
+            USER_EMAIL_ALREADY_EXISTS = "Email já cadastrado.";
     }
 }

@@ -13,6 +13,10 @@ namespace Uex.ContactBook.Infra.Repositories.Context.Configuration.Entities
                 .IsUnique();
 
             builder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            builder.Entity<User>()
                 .Property(b => b.UserName)
                 .IsRequired()
                 .HasMaxLength(50);

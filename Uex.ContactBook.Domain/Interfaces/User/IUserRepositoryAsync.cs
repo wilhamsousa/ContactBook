@@ -8,5 +8,6 @@ namespace Uex.ContactBook.Domain.Interfaces
         Task<List<User>> GetUserAsync();
         Task<User> GetUserAsync(Guid id);
         Task<User> GetByUserNameAsync(string userName);
+        Task<User> GetByEmailAsync(string userName);
     }
 }

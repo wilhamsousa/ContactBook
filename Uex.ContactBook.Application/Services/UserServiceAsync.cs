@@ -29,21 +29,34 @@ namespace Uex.ContactBook.Application.Services
             if (HasNotifications)
                 return newUser;
 
-            UserAlreadyExistsValidation(param.UserName);
+            await UserNameAlreadyExistsValidation(param.UserName);
 
             if (HasNotifications)
-                return null;
+                return newUser;
+
+            await EmailAlreadyExistsValidation(param.Email);
+
+            if (HasNotifications)
+                return newUser;
 
             var result = await _userRepository.CreateAsync(newUser); ;
             return result;
         }
 
-        private async Task UserAlreadyExistsValidation(string userName)
+        private async Task UserNameAlreadyExistsValidation(string userName)
         {
             var user = await _userRepository.GetByUserNameAsync(userName);
 
             if (user != null)
                 AddValidationFailure(UserMessage.USER_USERNAME_ALREADY_EXISTS);
+        }
+
+        private async Task EmailAlreadyExistsValidation(string email)
+        {
+            var user = await _userRepository.GetByEmailAsync(email);
+
+            if (user != null)
+                AddValidationFailure(UserMessage.USER_EMAIL_ALREADY_EXISTS);
         }
 
         public async Task<UserGetResponse> GetAsync(Guid id)

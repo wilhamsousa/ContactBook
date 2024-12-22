@@ -39,5 +39,14 @@ namespace Uex.ContactBook.Infra.Repositories
 
             return entity;
         }
+
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            var entity = await _context.User
+                .Where(x => x.Email == email)
+                .SingleOrDefaultAsync();
+
+            return entity;
+        }
     }
 }
