@@ -13,44 +13,44 @@ namespace Uex.ContactBook.Api.Extensions.Services
             var secretBase64 = Convert.ToBase64String(bytes);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                        .AddJwtBearer(options =>
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = issuer,
+                        ValidAudience = audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(secret))
+                    };
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = c =>
                         {
-                            options.TokenValidationParameters = new TokenValidationParameters
-                            {
-                                ValidateIssuer = true,
-                                ValidateAudience = true,
-                                ValidateLifetime = true,
-                                ValidateIssuerSigningKey = true,
-                                ValidIssuer = issuer,
-                                ValidAudience = audience,
-                                IssuerSigningKey = new SymmetricSecurityKey(
-                                    Encoding.UTF8.GetBytes(secret))
-                            };
+                            c.NoResult();
+                            c.Response.StatusCode = 401;
+                            c.Response.ContentType = "text/plain";
 
-                            options.Events = new JwtBearerEvents
-                            {
-                                OnAuthenticationFailed = c =>
-                                {
-                                    c.NoResult();
-                                    c.Response.StatusCode = 401;
-                                    c.Response.ContentType = "text/plain";
-
-#if DEBUG
-                                    c.Response.WriteAsync(c.Exception.ToString());
-                                    return Task.CompletedTask;
-#endif
-                                    c.Response.WriteAsync("Erro na autenticação");
-                                    return Task.CompletedTask;
-                                },
-                                OnTokenValidated = c =>
-                                {
-#if DEBUG
-                                    System.Console.WriteLine("Token valido: " + c.SecurityToken);
-#endif
-                                    return Task.CompletedTask;
-                                }
-                            };
-                        });
+    #if DEBUG
+                            c.Response.WriteAsync(c.Exception.ToString());
+                            return Task.CompletedTask;
+    #endif
+                            c.Response.WriteAsync("Erro na autenticação");
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = c =>
+                        {
+    #if DEBUG
+                            System.Console.WriteLine("Token válido: " + c.SecurityToken);
+    #endif
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
         }
     }
 }

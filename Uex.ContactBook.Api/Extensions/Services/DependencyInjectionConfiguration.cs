@@ -2,7 +2,6 @@
 using Uex.ContactBook.Domain.Interfaces;
 using Uex.ContactBook.Domain.Notification;
 using Uex.ContactBook.Infra.Repositories;
-using Hellang.Middleware.ProblemDetails;
 
 namespace Uex.ContactBook.Api.Extensions.Services
 {
@@ -14,6 +13,7 @@ namespace Uex.ContactBook.Api.Extensions.Services
 
             services.AddScoped<IUserRepositoryAsync, UserRepositoryAsync>();
             services.AddScoped<IUserServiceAsync, UserServiceAsync>();
+            services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
         }
     }
 }

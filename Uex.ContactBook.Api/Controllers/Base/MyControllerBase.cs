@@ -64,5 +64,7 @@ namespace Uex.ContactBook.Api.Controllers.Base
 
         public const string
             INVALID_ID = "Id não informado.";
+
+        public bool HasNotifications => _notificationContext.HasNotifications;
     }
 }

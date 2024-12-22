@@ -27,9 +27,9 @@ internal class Program
 
         builder.Services.AddCorsConfiguration();
 
-        string issuer = builder.Configuration.GetValue<string>("OpenId:Issuer");
-        string audience = builder.Configuration.GetValue<string>("OpenId:Audience");
-        string secret = builder.Configuration.GetValue<string>("OpenId:Secret");
+        string issuer = builder.Configuration.GetValue<string>("OAuth:Issuer");
+        string audience = builder.Configuration.GetValue<string>("OAuth:Audience");
+        string secret = builder.Configuration.GetValue<string>("OAuth:Secret");
         builder.Services.AddAuthenticationConfiguration(issuer, audience, secret);
 
         builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());

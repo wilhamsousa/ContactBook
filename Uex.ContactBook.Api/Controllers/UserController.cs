@@ -4,6 +4,9 @@ using Uex.ContactBook.Domain.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Uex.ContactBook.Domain.Interfaces;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace Uex.ContactBook.Api.Controllers
 {
@@ -30,6 +33,7 @@ namespace Uex.ContactBook.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{id:guid}")]
+        [Authorize]
         public async Task<ActionResult> Get(Guid id)
         {
             var response = await _userService.GetAsync(id);
@@ -42,12 +46,13 @@ namespace Uex.ContactBook.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("getall")]
+        [Authorize]
         public async Task<ActionResult> GetAll()
         {
             try
             {
                 var response = await _userService.GetAsync();
-                return CreateResult(response.ToList(), "Erro ao consultar.");
+                return CreateResult(response.ToList());
             }
             catch (Exception ex)
             {
@@ -88,15 +93,25 @@ namespace Uex.ContactBook.Api.Controllers
         [Route("{id:guid}")]
         public virtual async Task<ActionResult> Delete(Guid id)
         {
-            var user = await _userService.GetAsync(id);
-            if (user == null)
-            {
-                AddValidationFailure("Usuário não encontrado para excluir.");
-                return CreateResult(null, "Erro ao excluir registro");
-            }
-
             await _userService.DeleteAsync(id);
-            return CreateResult(null, "Erro ao excluir registro");
+            return CreateResult(null);
+        }
+
+        /// <summary>
+        /// Login to receive credentials
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(UserLoginRequest param)
+        {
+            var response = await _userService.LoginAsync(param);
+            if (HasNotifications)
+                return Unauthorized(response);
+
+             return CreateResult(response);
         }
     }
 }
