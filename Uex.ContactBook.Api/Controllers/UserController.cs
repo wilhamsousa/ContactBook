@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Uex.ContactBook.Domain.Interfaces;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
-using System.ComponentModel.DataAnnotations;
 
 namespace Uex.ContactBook.Api.Controllers
 {
@@ -95,23 +93,6 @@ namespace Uex.ContactBook.Api.Controllers
         {
             await _userService.DeleteAsync(id);
             return CreateResult(null);
-        }
-
-        /// <summary>
-        /// Login to receive credentials
-        /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("login")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login(UserLoginRequest param)
-        {
-            var response = await _userService.LoginAsync(param);
-            if (HasNotifications)
-                return Unauthorized(response);
-
-             return CreateResult(response);
         }
     }
 }

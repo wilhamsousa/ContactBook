@@ -9,7 +9,6 @@ namespace Uex.ContactBook.Domain.Interfaces
         Task<IEnumerable<UserGetAllResponse>> GetAsync();
         Task<User> GetByUserNameAsync(string userName);
         Task<User> CreateAsync(UserCreateRequest entity);
-        Task DeleteAsync(Guid id);
-        Task <UserLoginResponse>LoginAsync(UserLoginRequest param);
+        Task DeleteAsync(Guid id);        
     }
 }

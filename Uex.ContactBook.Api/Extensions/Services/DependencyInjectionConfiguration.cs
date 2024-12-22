@@ -13,7 +13,7 @@ namespace Uex.ContactBook.Api.Extensions.Services
 
             services.AddScoped<IUserRepositoryAsync, UserRepositoryAsync>();
             services.AddScoped<IUserServiceAsync, UserServiceAsync>();
-            services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
+            services.AddScoped<ILoginServiceAsync, LoginServiceAsync>();
         }
     }
 }

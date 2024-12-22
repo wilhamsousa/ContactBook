@@ -1,6 +1,6 @@
-﻿namespace Uex.ContactBook.Domain.Model.DTOs.User
+﻿namespace Uex.ContactBook.Domain.Model.DTOs.Login
 {
-    public readonly record struct UserLoginResponse(
+    public readonly record struct LoginResponse(
         string UserName,
         string Email,
         string AccessToken,
