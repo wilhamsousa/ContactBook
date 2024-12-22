@@ -49,8 +49,10 @@ namespace Uex.ContactBook.Api.Controllers
         {
             try
             {
-                var response = await _contactService.GetAsync();
-                return CreateResult(response.ToList());
+                var result = await _contactService.GetAsync(Authentication.UserId);
+
+                var response = result.Adapt<IEnumerable<ContactGetAllResponse>>();
+                return CreateResult(response);
             }
             catch (Exception ex)
             {
@@ -65,11 +67,12 @@ namespace Uex.ContactBook.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("create")]
+        [Authorize]
         public async Task<ActionResult> Create(ContactCreateRequest param)
         {
             try
             {
-                var entity = await _contactService.CreateAsync(param);
+                var entity = await _contactService.CreateAsync(Authentication.UserId, param);
                 if (!entity.Valid)
                     return CreateResult("Ao inserir contato", "Erro ao inserir contato");
 
@@ -89,10 +92,11 @@ namespace Uex.ContactBook.Api.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize]
         public virtual async Task<ActionResult> Delete(Guid id)
         {
-            await _contactService.DeleteAsync(id);
-            return CreateResult(null);
+            await _contactService.DeleteAsync(Authentication.UserId, id);
+            return CreateResult();
         }
     }
 }

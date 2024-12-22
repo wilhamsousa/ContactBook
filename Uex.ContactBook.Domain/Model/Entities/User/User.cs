@@ -9,10 +9,17 @@ namespace Uex.ContactBook.Domain.Model.Entities
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public User() { }
+        public virtual ICollection<Contact>? ContactList { get; set; }
+
+        public User() 
+        {
+            ContactList = new HashSet<Contact>();
+        }
 
         public User(string userName, string email, string password) 
         {
+            ContactList = new HashSet<Contact>();
+
             UserName = userName;
             Email = email;
             Password = password;

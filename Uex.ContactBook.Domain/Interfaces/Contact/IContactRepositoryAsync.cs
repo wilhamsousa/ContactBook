@@ -5,9 +5,9 @@ namespace Uex.ContactBook.Domain.Interfaces
 {
     public interface IContactRepositoryAsync : IAsyncRepositoryBase<Contact>
     {
-        Task<List<Contact>> GetContactAsync();
-        Task<Contact> GetContactAsync(Guid id);
-        Task<Contact> GetByNameAsync(string name);
-        Task<Contact> GetByEmailAsync(string email);
+        Task<List<Contact>> GetContactAsync(Guid userId);
+        Task<Contact> GetContactAsync(Guid userId, Guid id);
+        Task<Contact> GetByNameAsync(Guid userId, string name);
+        Task<Contact> GetByEmailAsync(Guid userId, string email);
     }
 }

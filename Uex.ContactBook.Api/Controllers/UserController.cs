@@ -75,7 +75,7 @@ namespace Uex.ContactBook.Api.Controllers
         public virtual async Task<ActionResult> Delete()
         {
             await _userServiceAsync.DeleteAsync(Authentication.UserId);
-            return CreateResult(null);
+            return CreateResult();
         }
     }
 }

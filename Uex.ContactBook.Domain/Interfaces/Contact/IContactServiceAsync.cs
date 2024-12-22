@@ -5,10 +5,10 @@ namespace Uex.ContactBook.Domain.Interfaces
 {
     public interface IContactServiceAsync
     {
-        Task<ContactGetResponse> GetAsync(Guid id);
-        Task<IEnumerable<ContactGetAllResponse>> GetAsync();
-        Task<Contact> GetByNameAsync(string name);
-        Task<Contact> CreateAsync(ContactCreateRequest entity);
-        Task DeleteAsync(Guid id);        
+        Task<Contact> GetAsync(Guid userId, Guid id);
+        Task<IEnumerable<Contact>> GetAsync(Guid userId);
+        Task<Contact> GetByNameAsync(Guid userId, string name);
+        Task<Contact> CreateAsync(Guid userId, ContactCreateRequest entity);
+        Task DeleteAsync(Guid userId, Guid id);        
     }
 }

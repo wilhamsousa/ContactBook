@@ -62,7 +62,7 @@ namespace Uex.ContactBook.Api.Controllers.Base
             return authenticationVO;
         }
 
-        protected ActionResult CreateResult(object responseObject, string errorTitle = null)
+        protected ActionResult CreateResult(object responseObject = null, string errorTitle = null)
         {
             if (_notificationContext.HasNotifications)
             {

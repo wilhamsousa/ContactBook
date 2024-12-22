@@ -4,7 +4,8 @@ using Uex.ContactBook.Domain.Model.Validators;
 namespace Uex.ContactBook.Domain.Model.Entities
 {
     public class Contact : BaseEntity
-    {        
+    {
+        public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Cpf { get; set; }
@@ -12,6 +13,8 @@ namespace Uex.ContactBook.Domain.Model.Entities
         public string Address { get; set; }
         public string Cep { get; set; }
         public string GeographicalPosition { get; set; }
+
+        public virtual User User { get; set; }
 
         public Contact() 
         {

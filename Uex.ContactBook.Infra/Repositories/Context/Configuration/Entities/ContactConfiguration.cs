@@ -8,8 +8,14 @@ namespace Uex.ContactBook.Infra.Repositories.Context.Configuration.Entities
         public void Configure(ModelBuilder builder)
         {
             builder.Entity<Contact>()
-                .HasIndex(u => u.Name)
+                .HasIndex(u => new { u.UserId, u.Name })
                 .IsUnique();
+
+            builder.Entity<Contact>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.ContactList)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.Entity<Contact>()
                 .Property(b => b.Name)

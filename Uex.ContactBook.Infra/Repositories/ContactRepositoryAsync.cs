@@ -13,35 +13,39 @@ namespace Uex.ContactBook.Infra.Repositories
         {
         }
 
-        public async Task<List<Contact>> GetContactAsync()
+        public async Task<List<Contact>> GetContactAsync(Guid userId)
         {
             var entities = await _context.Contact
+                .Where(x => x.UserId == userId)
                 .ToListAsync();
 
             return entities;
         }
 
-        public async Task<Contact> GetContactAsync(Guid id)
+        public async Task<Contact> GetContactAsync(Guid userId, Guid id)
         {
             var entity = await _context.Contact
+                .Where(x => x.UserId == userId)
                 .Where(x => x.Id == id)
                 .SingleOrDefaultAsync();
 
             return entity;
         }
 
-        public async Task<Contact> GetByNameAsync(string name)
+        public async Task<Contact> GetByNameAsync(Guid userId, string name)
         {
             var entity = await _context.Contact
+                .Where(x => x.UserId == userId)
                 .Where(x => x.Name == name)
                 .SingleOrDefaultAsync();
 
             return entity;
         }
 
-        public async Task<Contact> GetByEmailAsync(string email)
+        public async Task<Contact> GetByEmailAsync(Guid userId, string email)
         {
             var entity = await _context.Contact
+                .Where(x => x.UserId == userId)
                 .Where(x => x.Email == email)
                 .SingleOrDefaultAsync();
 
