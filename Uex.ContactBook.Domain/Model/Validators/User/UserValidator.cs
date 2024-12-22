@@ -9,21 +9,21 @@ namespace Uex.ContactBook.Domain.Model.Validators
         {
             RuleFor(entity => entity.UserName)
                 .NotEmpty()
-                .WithMessage("Usuário não preenchido.")
+                .WithMessage(UserMessage.USERNAME_NOT_INFORMED)
                 .MinimumLength(10)
-                .WithMessage("Usuário deve conter pelo menos 10 dígitos.");
+                .WithMessage(UserMessage.USERNAME_DIGITS);
 
             RuleFor(entity => entity.Email)
                 .NotEmpty()
-                .WithMessage("Email não preenchido.")
+                .WithMessage(UserMessage.EMAIL_NOT_INFORMED)
                 .EmailAddress()
-                .WithMessage("Email inválido.");
+                .WithMessage(UserMessage.EMAIL_INVALID);
 
             RuleFor(entity => entity.Password)
                 .NotEmpty()
-                .WithMessage("Senha não preenchida.")
+                .WithMessage(UserMessage.PASSWORD_NOT_INFORMED)
                 .MinimumLength(6)
-                .WithMessage("Senha deve conter pelo menos 6 dígitos.");
+                .WithMessage(UserMessage.PASSWORD_DIGITS);
         }
     }
 }

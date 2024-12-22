@@ -25,39 +25,19 @@ namespace Uex.ContactBook.Api.Controllers
         }
 
         /// <summary>
-        /// Get User Data By ID
+        /// Get Loged User Data
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id:guid}")]
         [Authorize]
-        public async Task<ActionResult> Get(Guid id)
+        public async Task<ActionResult> Get()
         {
-            var response = await _userService.GetAsync(id);
-            return CreateResult(response, "Erro");
+
+            var response = await _userService.GetAsync(Authentication.UserId);
+            return CreateResult(response);
         }
 
         /// <summary>
-        /// Get all users data
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("getall")]
-        [Authorize]
-        public async Task<ActionResult> GetAll()
-        {
-            try
-            {
-                var response = await _userService.GetAsync();
-                return CreateResult(response.ToList());
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-        }
-
         /// <summary>
         /// Create user
         /// </summary>
@@ -83,15 +63,14 @@ namespace Uex.ContactBook.Api.Controllers
         }
 
         /// <summary>
-        /// Delete user
+        /// Delete logged user
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{id:guid}")]
-        public virtual async Task<ActionResult> Delete(Guid id)
+        [Authorize]
+        public virtual async Task<ActionResult> Delete()
         {
-            await _userService.DeleteAsync(id);
+            await _userService.DeleteAsync(Authentication.UserId);
             return CreateResult(null);
         }
     }

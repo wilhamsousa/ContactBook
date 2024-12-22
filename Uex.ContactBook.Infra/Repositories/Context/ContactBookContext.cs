@@ -12,10 +12,12 @@ namespace Uex.ContactBook.Infra.Repositories.Context
         }
 
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Contact> Contact { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             MyModelConfigurationStrategy.Configure(builder, new UserConfiguration());
+            MyModelConfigurationStrategy.Configure(builder, new ContactConfiguration());
         }
     }
 }

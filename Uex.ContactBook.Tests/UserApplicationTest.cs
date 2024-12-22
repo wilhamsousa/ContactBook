@@ -6,7 +6,6 @@ using Uex.ContactBook.Tests.Base;
 using Moq;
 using Xunit.Abstractions;
 using Uex.ContactBook.Domain.Model.DTOs.User;
-using Microsoft.Extensions.Configuration;
 
 namespace Uex.ContactBook.Tests
 {
@@ -20,6 +19,7 @@ namespace Uex.ContactBook.Tests
         private readonly string usernameInDatabase = "Joao Antonio";
         private readonly string invalidNewoUsernameLengh = "Wilham";
         private readonly string validEmail = "email@dominio.com";
+        private readonly string password = "123456";
 
         public UserApplicationTest(ITestOutputHelper output) : base(output)
         {
@@ -53,14 +53,14 @@ namespace Uex.ContactBook.Tests
         public void CreateOk()
         {
             UserCreateRepositorySetup(
-                response: new User(usernameInDatabase, validEmail)
+                response: new User(usernameInDatabase, validEmail, password)
             );
 
             GetByUserNameRepositorySetup(
-                response: new User(usernameInDatabase, validEmail)
+                response: new User(usernameInDatabase, validEmail, password)
             );
 
-            var param = new UserCreateRequest(newUsername, validEmail);
+            var param = new UserCreateRequest(newUsername, validEmail, password);
             var result = _userServiceAsync.CreateAsync(param).Result;
             Assert.True(result.Valid, result.NotificationMessage());
         }
@@ -69,14 +69,14 @@ namespace Uex.ContactBook.Tests
         public void CreateInvalidUserNameError()
         {
             UserCreateRepositorySetup(
-                response: new User(usernameInDatabase, validEmail)
+                response: new User(usernameInDatabase, validEmail, password)
             );
 
             GetByUserNameRepositorySetup(
-                response: new User(usernameInDatabase, validEmail)
+                response: new User(usernameInDatabase, validEmail, password)
             );
 
-            var param = new UserCreateRequest(invalidNewoUsernameLengh, validEmail);
+            var param = new UserCreateRequest(invalidNewoUsernameLengh, validEmail, password);
             var result = _userServiceAsync.CreateAsync(param).Result;
             Assert.False(result.Valid, result.NotificationMessage());
         }
@@ -85,14 +85,14 @@ namespace Uex.ContactBook.Tests
         public void UserNameAlreadyExists()
         {
             UserCreateRepositorySetup(
-                response: new User(usernameInDatabase, validEmail)
+                response: new User(usernameInDatabase, validEmail, password)
             );
 
             GetByUserNameRepositorySetup(
-                response: new User(usernameInDatabase, validEmail)
+                response: new User(usernameInDatabase, validEmail, password)
             );
 
-            var param = new UserCreateRequest(usernameInDatabase, validEmail);
+            var param = new UserCreateRequest(usernameInDatabase, validEmail, password);
             var result = _userServiceAsync.CreateAsync(param).Result;
             Assert.True(_notificationContext.Notifications.Any(x => x.Message == UserMessage.USER_USERNAME_ALREADY_EXISTS), result.NotificationMessage());
         }

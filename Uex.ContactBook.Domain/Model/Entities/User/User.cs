@@ -25,6 +25,13 @@ namespace Uex.ContactBook.Domain.Model.Entities
     {
         public const string
             USER_USERNAME_ALREADY_EXISTS = "Usuário já cadastrado.",
-            USER_EMAIL_ALREADY_EXISTS = "Email já cadastrado.";
+            USER_EMAIL_ALREADY_EXISTS = "Email já cadastrado.",
+            USERNAME_NOT_INFORMED = "Usuário não preenchido.",
+            USER_NOTFOUND = "Usuário não encontrado.",
+            USERNAME_DIGITS = "Usuário deve conter pelo menos 10 dígitos.",
+            EMAIL_NOT_INFORMED = "Email não informado.",
+            EMAIL_INVALID = "Email inválido.",
+            PASSWORD_NOT_INFORMED = "Senha não informada.",
+            PASSWORD_DIGITS = "Senha deve conter pelo menos 6 dígitos.";
     }
 }

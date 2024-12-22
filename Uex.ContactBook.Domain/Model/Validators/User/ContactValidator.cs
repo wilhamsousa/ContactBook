@@ -11,33 +11,33 @@ namespace Uex.ContactBook.Domain.Model.Validators
         {
             RuleFor(entity => entity.Name)
                 .NotEmpty()
-                .WithMessage("Nome não preenchido.")
+                .WithMessage(ContactMessage.NAME_NOT_INFORMED)
                 .MinimumLength(10)
-                .WithMessage("Nome deve conter pelo menos 10 dígitos.");
+                .WithMessage(ContactMessage.NAME_DIGITS);
 
             RuleFor(entity => entity.Email)
                 .NotEmpty()
-                .WithMessage("Email não preenchido.")
+                .WithMessage(ContactMessage.EMAIL_NOT_INFORMED)
                 .EmailAddress()
-                .WithMessage("Email inválido.");
+                .WithMessage(ContactMessage.EMAIL_INVALID);
 
             RuleFor(entity => entity.Cep)
                 .NotEmpty()
-                .WithMessage("Cep não preenchido.")
+                .WithMessage(ContactMessage.CEP_NOT_INFORMED)
                 .Matches(MyRegex.CepFormat)
-                .WithMessage("CEP inválido. O formato correto é 00000-000.");
+                .WithMessage(ContactMessage.CEP_INVALID);
 
             RuleFor(entity => entity.Cpf)
                 .NotEmpty()
-                .WithMessage("CPF não preenchido.")
+                .WithMessage(ContactMessage.CPF_NOT_INFORMED)
                 .Must(FormatExtensions.IsValidCPF)
-                .WithMessage("CPF inválido.");
+                .WithMessage(ContactMessage.CPF_INVALID);
 
             RuleFor(entity => entity.PhoneNumber)
                 .NotEmpty()
-                .WithMessage("Telefone não preenchido.")
+                .WithMessage(ContactMessage.PHONE_NOT_INFORMED)
                 .Matches(MyRegex.PhoneFormat)
-                .WithMessage("Telefone inválido. O formato correto é +00(00)000000-0000.");
+                .WithMessage(ContactMessage.PHONE_INVALID);
         }
     }
 }
