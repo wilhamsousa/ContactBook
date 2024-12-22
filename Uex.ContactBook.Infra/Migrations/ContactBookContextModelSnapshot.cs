@@ -111,7 +111,6 @@ namespace Uex.ContactBook.Infra.Migrations
                     b.HasOne("Uex.ContactBook.Domain.Model.Entities.User", "User")
                         .WithMany("ContactList")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("User");

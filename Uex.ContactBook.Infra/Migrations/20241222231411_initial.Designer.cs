@@ -12,7 +12,7 @@ using Uex.ContactBook.Infra.Repositories.Context;
 namespace Uex.ContactBook.Infra.Migrations
 {
     [DbContext(typeof(ContactBookContext))]
-    [Migration("20241222225528_initial")]
+    [Migration("20241222231411_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -114,7 +114,6 @@ namespace Uex.ContactBook.Infra.Migrations
                     b.HasOne("Uex.ContactBook.Domain.Model.Entities.User", "User")
                         .WithMany("ContactList")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("User");
