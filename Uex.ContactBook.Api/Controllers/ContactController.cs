@@ -34,7 +34,8 @@ namespace Uex.ContactBook.Api.Controllers
         [Authorize]
         public async Task<ActionResult> Get(Guid id)
         {
-            var response = await _contactService.GetAsync(id);
+            var result = await _contactService.GetAsync(Authentication.UserId, id);
+            var response = result.Adapt<ContactGetResponse>();
             return CreateResult(response);
         }
 
@@ -50,8 +51,7 @@ namespace Uex.ContactBook.Api.Controllers
             try
             {
                 var result = await _contactService.GetAsync(Authentication.UserId);
-
-                var response = result.Adapt<IEnumerable<ContactGetAllResponse>>();
+                var response = result.Adapt<IEnumerable<ContactGetResponse>>();
                 return CreateResult(response);
             }
             catch (Exception ex)

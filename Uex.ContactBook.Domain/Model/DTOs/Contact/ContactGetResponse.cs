@@ -1,6 +1,6 @@
 ﻿namespace Uex.ContactBook.Domain.Model.DTOs.Contact
 {
-    public readonly record struct ContactGetAllResponse(
+    public readonly record struct ContactGetResponse(
         Guid id,
         string Name,
         string Email,
