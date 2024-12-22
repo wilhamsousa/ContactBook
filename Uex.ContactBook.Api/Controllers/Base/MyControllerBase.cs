@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
+using Uex.ContactBook.Domain.Interfaces;
 
 namespace Uex.ContactBook.Api.Controllers.Base
 {
@@ -14,7 +15,8 @@ namespace Uex.ContactBook.Api.Controllers.Base
         private readonly NotificationContext _notificationContext;
         protected AuthenticationByToken Authentication;
 
-        protected MyControllerBase(NotificationContext notificationContext)
+        protected MyControllerBase(
+            NotificationContext notificationContext)
         {
             _notificationContext = notificationContext;
         }

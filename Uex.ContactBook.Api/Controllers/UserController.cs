@@ -12,16 +12,16 @@ namespace Uex.ContactBook.Api.Controllers
     {
 
         private readonly ILogger<UserController> _logger;
-        private readonly IUserServiceAsync _userService;
+        private readonly IUserServiceAsync _userServiceAsync;
 
         public UserController(
             NotificationContext notificationContext,
             ILogger<UserController> logger,
-            IUserServiceAsync userService)
+            IUserServiceAsync userServiceAsync)
             : base(notificationContext)
         {
             _logger = logger;
-            _userService = userService;
+            _userServiceAsync = userServiceAsync;
         }
 
         /// <summary>
@@ -33,7 +33,11 @@ namespace Uex.ContactBook.Api.Controllers
         public async Task<ActionResult> Get()
         {
 
-            var response = await _userService.GetAsync(Authentication.UserId);
+            var entity = await _userServiceAsync.GetAsync(Authentication.UserId);
+            if (entity == null)
+                return CreateResult(null, "Usuário não encontrado");
+
+            var response = entity.Adapt<UserGetResponse>();
             return CreateResult(response);
         }
 
@@ -49,7 +53,7 @@ namespace Uex.ContactBook.Api.Controllers
         {
             try
             {
-                var entity = await _userService.CreateAsync(param);
+                var entity = await _userServiceAsync.CreateAsync(param);
                 if (!entity.Valid)
                     return CreateResult("Ao inserir usuário", "Erro ao inserir usuário");
 
@@ -70,7 +74,7 @@ namespace Uex.ContactBook.Api.Controllers
         [Authorize]
         public virtual async Task<ActionResult> Delete()
         {
-            await _userService.DeleteAsync(Authentication.UserId);
+            await _userServiceAsync.DeleteAsync(Authentication.UserId);
             return CreateResult(null);
         }
     }

@@ -5,7 +5,7 @@ namespace Uex.ContactBook.Domain.Interfaces
 {
     public interface IUserServiceAsync
     {
-        Task<UserGetResponse> GetAsync(Guid id);
+        Task<User> GetAsync(Guid id);
         Task<User> CreateAsync(UserCreateRequest entity);
         Task DeleteAsync(Guid id);        
     }

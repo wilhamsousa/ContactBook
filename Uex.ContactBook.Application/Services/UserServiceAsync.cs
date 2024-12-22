@@ -59,11 +59,10 @@ namespace Uex.ContactBook.Application.Services
                 AddValidationFailure(UserMessage.USER_EMAIL_ALREADY_EXISTS);
         }
 
-        public async Task<UserGetResponse> GetAsync(Guid id)
+        public async Task<User> GetAsync(Guid id)
         {
-            var entity = await _userRepository.GetUserAsync(id);
-            var model = entity.Adapt<UserGetResponse>();
-            return model;
+            var entity = await _userRepository.GetUserAsync(id);            
+            return entity;
         }
 
         public virtual async Task DeleteAsync(Guid id)
