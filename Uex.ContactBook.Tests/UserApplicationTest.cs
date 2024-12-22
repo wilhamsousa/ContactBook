@@ -13,14 +13,13 @@ namespace Uex.ContactBook.Tests
     public class UserApplicationTest : BaseTest
     {
         private readonly Mock<IUserRepositoryAsync> _userRepositoryAsync;
-        private readonly Mock<ILoginServiceAsync> _tokenGeneratorService;
-        private readonly Mock<IConfiguration> _configuration;
         private readonly IUserServiceAsync _userServiceAsync;
         NotificationContext _notificationContext = new NotificationContext();
 
-        private readonly Guid userId1 = Guid.Parse("8ab7a28f-3526-4abd-8567-7dd42840cbf7");
-        private readonly string userName1 = "Usuário 1";
-        private readonly string validEmail1 = "email@dominio.com";
+        private readonly string newUsername = "Wilham Ezequiel de Sousa";
+        private readonly string usernameInDatabase = "Joao Antonio";
+        private readonly string invalidNewoUsernameLengh = "Wilham";
+        private readonly string validEmail = "email@dominio.com";
 
         public UserApplicationTest(ITestOutputHelper output) : base(output)
         {
@@ -28,43 +27,74 @@ namespace Uex.ContactBook.Tests
             _userServiceAsync = new UserServiceAsync(_notificationContext, _userRepositoryAsync.Object);
         }
 
-        private void CreateSetup(
-            User createUserResult,
-            User userResult
+        private void UserCreateRepositorySetup(
+            User response
         )
         {
             _userRepositoryAsync.Setup(x => x
                 .CreateAsync(It.IsAny<User>()))
-                .Callback((User param) => _output.WriteLine($"Received {param.Id}"))
-                .Returns(() => Task.FromResult(createUserResult)
+                .Callback((User response) => _output.WriteLine($"UserCreateRepository Response: {response.Id}"))
+                .Returns(() => Task.FromResult(response)
+            );
+        }
+
+        private void GetByUserNameRepositorySetup(
+            User response
+        )
+        {
+            _userRepositoryAsync.Setup(x => x
+                .GetByUserNameAsync(It.IsAny<string>()))
+                .Callback((string response) => _output.WriteLine($"GetByUserNameRepository Response {response}"))
+                .Returns(() => Task.FromResult(response)
             );
         }
 
         [Fact]
         public void CreateOk()
         {
-            CreateSetup(
-                createUserResult: new User(userName1, validEmail1),
-                userResult: new User()
+            UserCreateRepositorySetup(
+                response: new User(usernameInDatabase, validEmail)
             );
 
-            var param = new UserCreateRequest(userName1, validEmail1);
+            GetByUserNameRepositorySetup(
+                response: new User(usernameInDatabase, validEmail)
+            );
+
+            var param = new UserCreateRequest(newUsername, validEmail);
             var result = _userServiceAsync.CreateAsync(param).Result;
-            Assert.True(result.Valid);
+            Assert.True(result.Valid, result.NotificationMessage());
+        }
+
+        [Fact]
+        public void CreateInvalidUserNameError()
+        {
+            UserCreateRepositorySetup(
+                response: new User(usernameInDatabase, validEmail)
+            );
+
+            GetByUserNameRepositorySetup(
+                response: new User(usernameInDatabase, validEmail)
+            );
+
+            var param = new UserCreateRequest(invalidNewoUsernameLengh, validEmail);
+            var result = _userServiceAsync.CreateAsync(param).Result;
+            Assert.False(result.Valid, result.NotificationMessage());
         }
 
         [Fact]
         public void UserNameAlreadyExists()
         {
-            CreateSetup(
-                createUserResult: new User(userName1, validEmail1),
-                userResult: new User(userName1, validEmail1)
+            UserCreateRepositorySetup(
+                response: new User(usernameInDatabase, validEmail)
             );
 
-            var param = new UserCreateRequest(userName1, validEmail1);
+            GetByUserNameRepositorySetup(
+                response: new User(usernameInDatabase, validEmail)
+            );
+
+            var param = new UserCreateRequest(usernameInDatabase, validEmail);
             var result = _userServiceAsync.CreateAsync(param).Result;
-            Assert.Null(result);
-            Assert.True(_notificationContext.Notifications.Any(x => x.Message == UserMessage.USER_USERNAME_ALREADY_EXISTS));
+            Assert.True(_notificationContext.Notifications.Any(x => x.Message == UserMessage.USER_USERNAME_ALREADY_EXISTS), result.NotificationMessage());
         }
     }
 }

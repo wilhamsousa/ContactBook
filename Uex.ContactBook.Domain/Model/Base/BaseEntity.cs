@@ -30,5 +30,13 @@ namespace Uex.ContactBook.Domain.Model.Base
             return Valid = ValidationResult.IsValid;
         }
 
+        public string NotificationMessage()
+        {
+            if (ValidationResult != null && ValidationResult.Errors != null && ValidationResult.Errors.Any() )
+                return ValidationResult.Errors.FirstOrDefault().ErrorMessage;
+
+            return string.Empty;
+        }
+
     }
 }

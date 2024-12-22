@@ -4,9 +4,6 @@ using Uex.ContactBook.Domain.Model.Entities;
 using Uex.ContactBook.Domain.Notification;
 using Mapster;
 using Uex.ContactBook.Domain.Model.DTOs.User;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.Extensions.Configuration;
 
 namespace Uex.ContactBook.Application.Services
 {
@@ -41,7 +38,8 @@ namespace Uex.ContactBook.Application.Services
             if (HasNotifications)
                 return newUser;
 
-            var result = await _userRepository.CreateAsync(newUser); ;
+            var result = await _userRepository.CreateAsync(newUser);
+            result.Validate();
             return result;
         }
 
