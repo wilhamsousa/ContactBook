@@ -34,8 +34,11 @@ namespace Uex.ContactBook.Api.Controllers
         [Authorize]
         public async Task<ActionResult> Get(Guid id)
         {
-            var result = await _contactService.GetAsync(Authentication.UserId, id);
-            var response = result.Adapt<ContactGetResponse>();
+            var entity = await _contactService.GetAsync(Authentication.UserId, id);
+            if (entity == null)
+                return CreateResult(null, "Contato não encontrado");
+
+            var response = entity.Adapt<ContactGetResponse>();
             return CreateResult(response);
         }
 
@@ -50,8 +53,11 @@ namespace Uex.ContactBook.Api.Controllers
         {
             try
             {
-                var result = await _contactService.GetAsync(Authentication.UserId);
-                var response = result.Adapt<IEnumerable<ContactGetResponse>>();
+                var entity = await _contactService.GetAsync(Authentication.UserId);
+                if (entity == null)
+                    return CreateResult(null, "Contato não encontrado");
+
+                var response = entity.Adapt<IEnumerable<ContactGetResponse>>();
                 return CreateResult(response);
             }
             catch (Exception ex)

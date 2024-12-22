@@ -5,6 +5,8 @@ using Uex.ContactBook.Domain.Notification;
 using Uex.ContactBook.Infra.Base;
 using Uex.ContactBook.Infra.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
+using Azure;
+using Microsoft.Extensions.Logging;
 
 namespace Uex.ContactBook.Infra.Repositories
 {
@@ -47,6 +49,30 @@ namespace Uex.ContactBook.Infra.Repositories
                 .SingleOrDefaultAsync();
 
             return entity;
+        }
+
+        public override async Task DeleteAsync(Guid id)
+        {
+            using (var objTrans = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    await _context.Contact
+                        .Where(x => x.UserId == id)
+                        .ExecuteDeleteAsync();
+                    await _context.SaveChangesAsync();
+
+                    var entity = await _context.User.FindAsync(id);
+                    await DeleteAsync(entity);
+
+                    objTrans.Commit();
+                }
+                catch (Exception e)
+                {
+                    objTrans.Rollback();
+                    AddValidationFailure("Erro ao excluir usuário ou seus contatos.");
+                }
+            }
         }
     }
 }

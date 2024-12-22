@@ -34,10 +34,7 @@ namespace Uex.ContactBook.Api.Controllers
         public async Task<IActionResult> Login(LoginRequest param)
         {
             var response = await _loginServiceAsync.LoginAsync(param);
-            if (HasNotifications)
-                return Unauthorized(response);
-
-             return CreateResult(response);
+            return CreateResult(response);
         }
     }
 }
