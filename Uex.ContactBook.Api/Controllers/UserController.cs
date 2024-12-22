@@ -3,7 +3,6 @@ using Uex.ContactBook.Domain.Model.DTOs.User;
 using Uex.ContactBook.Domain.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Uex.ContactBook.Domain.Interfaces;
-using Uex.ContactBook.Domain.Model.Validators;
 using Mapster;
 
 namespace Uex.ContactBook.Api.Controllers

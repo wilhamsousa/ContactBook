@@ -3,7 +3,7 @@ using Uex.ContactBook.Api.Extensions;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.EntityFrameworkCore;
 using Uex.ContactBook.Api.Extensions.Services;
-using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Text;
 
 internal class Program
 {
@@ -26,6 +26,11 @@ internal class Program
         builder.Services.AddContextConfiguration(connectionString);
 
         builder.Services.AddCorsConfiguration();
+
+        string issuer = builder.Configuration.GetValue<string>("OpenId:Issuer");
+        string audience = builder.Configuration.GetValue<string>("OpenId:Audience");
+        string secret = builder.Configuration.GetValue<string>("OpenId:Secret");
+        builder.Services.AddAuthenticationConfiguration(issuer, audience, secret);
 
         builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 
