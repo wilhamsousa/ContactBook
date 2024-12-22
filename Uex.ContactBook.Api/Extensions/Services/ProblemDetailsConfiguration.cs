@@ -1,14 +1,14 @@
 ﻿using Hellang.Middleware.ProblemDetails.Mvc;
 
-namespace Uex.ContactBook.Api.Extensions
+namespace Uex.ContactBook.Api.Extensions.Services
 {
     public static class ProblemDetailsConfiguration
     {
         public static void AddProblemDetailsConfiguration(this IServiceCollection services)
         {
             Hellang.Middleware.ProblemDetails.ProblemDetailsExtensions
-                .AddProblemDetails(services, 
-                    options => 
+                .AddProblemDetails(services,
+                    options =>
                     {
                         options.IncludeExceptionDetails = (ctx, ex) =>
                         {

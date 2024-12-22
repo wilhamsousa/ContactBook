@@ -4,7 +4,7 @@ using Uex.ContactBook.Domain.Notification;
 using Uex.ContactBook.Infra.Repositories;
 using Hellang.Middleware.ProblemDetails;
 
-namespace Uex.ContactBook.Api.Extensions
+namespace Uex.ContactBook.Api.Extensions.Services
 {
     public static partial class DependencyInjectionConfiguration
     {

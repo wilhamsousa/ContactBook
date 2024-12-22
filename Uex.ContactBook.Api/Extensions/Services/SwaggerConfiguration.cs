@@ -1,9 +1,8 @@
 ﻿
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using Uex.ContactBook.Domain.Model.Entities;
 
-namespace Uex.ContactBook.Api.Extensions
+namespace Uex.ContactBook.Api.Extensions.Services
 {
     public static partial class SwaggerConfiguration
     {
@@ -24,12 +23,18 @@ namespace Uex.ContactBook.Api.Extensions
                         License = new OpenApiLicense
                         {
                         }
-                });
+                    });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 x.IncludeXmlComments(xmlPath);
+
+                xmlFile = "Uex.ContactBook.Domain.xml";
+                xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                x.IncludeXmlComments(xmlPath);
             });
+            services.AddSwaggerGenNewtonsoftSupport();
         }
+
     }
 }

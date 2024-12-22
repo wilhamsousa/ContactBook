@@ -1,8 +1,9 @@
 using Uex.ContactBook.Api.Controllers.Notification;
 using Uex.ContactBook.Api.Extensions;
-using Uex.ContactBook.Infra.Repositories.Context;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.EntityFrameworkCore;
+using Uex.ContactBook.Api.Extensions.Services;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 internal class Program
 {
@@ -18,18 +19,13 @@ internal class Program
         builder.Services.AddControllers();
 
         builder.Services.AddEndpointsApiExplorer();
+        
         builder.Services.AddSwagger();
 
-        builder.Services.AddDbContextPool<ContactBookContext>(
-            options => options
-                .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-        );
+        string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        builder.Services.AddContextConfiguration(connectionString);
 
-        using ILoggerFactory factory = LoggerFactory.Create(builder => builder.AddConsole());
-        ILogger logger = factory.CreateLogger("Program");
-        logger.LogInformation("Application started!");
-        logger.LogInformation("DefaultConnection: " + builder.Configuration.GetConnectionString("DefaultConnection"));
+        builder.Services.AddCorsConfiguration();
 
         builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 

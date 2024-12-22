@@ -1,7 +1,7 @@
 ﻿using Uex.ContactBook.Infra.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Uex.ContactBook.Api.Extensions
+namespace Uex.ContactBook.Api.Extensions.Services
 {
     public static class WebApplicationExtensions
     {
