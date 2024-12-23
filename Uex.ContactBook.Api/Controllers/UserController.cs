@@ -32,7 +32,6 @@ namespace Uex.ContactBook.Api.Controllers
         [Authorize]
         public async Task<ActionResult> Get()
         {
-
             var entity = await _userServiceAsync.GetAsync(Authentication.UserId);
             if (entity == null)
                 return CreateResult(null, "Usuário não encontrado");
@@ -51,19 +50,12 @@ namespace Uex.ContactBook.Api.Controllers
         [Route("create")]
         public async Task<ActionResult> Create(UserCreateRequest param)
         {
-            try
-            {
-                var entity = await _userServiceAsync.CreateAsync(param);
-                if (!entity.Valid)
-                    return CreateResult("Ao inserir usuário", "Erro ao inserir usuário");
+            var entity = await _userServiceAsync.CreateAsync(param);
+            if (!entity.Valid)
+                return CreateResult("Ao inserir usuário", "Erro ao inserir usuário");
 
-                var response = entity.Adapt<UserCreateResponse>();
-                return CreateResult(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            var response = entity.Adapt<UserCreateResponse>();
+            return CreateResult(response);
         }
 
         /// <summary>

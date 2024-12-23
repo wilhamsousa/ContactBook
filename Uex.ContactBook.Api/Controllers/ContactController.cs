@@ -51,19 +51,12 @@ namespace Uex.ContactBook.Api.Controllers
         [Authorize]
         public async Task<ActionResult> GetAll()
         {
-            try
-            {
-                var entity = await _contactService.GetAsync(Authentication.UserId);
-                if (entity == null)
-                    return CreateResult(null, "Contato não encontrado");
+            var entity = await _contactService.GetAsync(Authentication.UserId);
+            if (entity == null)
+                return CreateResult(null, "Contato não encontrado");
 
-                var response = entity.Adapt<IEnumerable<ContactGetResponse>>();
-                return CreateResult(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            var response = entity.Adapt<IEnumerable<ContactGetResponse>>();
+            return CreateResult(response);
         }
 
         /// <summary>
@@ -76,19 +69,12 @@ namespace Uex.ContactBook.Api.Controllers
         [Authorize]
         public async Task<ActionResult> Create(ContactCreateRequest param)
         {
-            try
-            {
-                var entity = await _contactService.CreateAsync(Authentication.UserId, param);
-                if (!entity.Valid)
-                    return CreateResult("Ao inserir contato", "Erro ao inserir contato");
+            var entity = await _contactService.CreateAsync(Authentication.UserId, param);
+            if (!entity.Valid)
+                return CreateResult("Ao inserir contato", "Erro ao inserir contato");
 
-                var response = entity.Adapt<ContactCreateResponse>();
-                return CreateResult(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            var response = entity.Adapt<ContactCreateResponse>();
+            return CreateResult(response);
         }
 
         /// <summary>
