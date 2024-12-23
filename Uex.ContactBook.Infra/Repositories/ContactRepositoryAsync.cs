@@ -32,11 +32,11 @@ namespace Uex.ContactBook.Infra.Repositories
             return entity;
         }
 
-        public async Task<Contact> GetByNameAsync(Guid userId, string name)
+        public async Task<Contact> GetByCpfAsync(Guid userId, string cpf)
         {
             var entity = await _context.Contact
                 .Where(x => x.UserId == userId)
-                .Where(x => x.Name == name)
+                .Where(x => x.Cpf == cpf)
                 .SingleOrDefaultAsync();
 
             return entity;

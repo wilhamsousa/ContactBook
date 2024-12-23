@@ -12,7 +12,7 @@ using Uex.ContactBook.Infra.Repositories.Context;
 namespace Uex.ContactBook.Infra.Migrations
 {
     [DbContext(typeof(ContactBookContext))]
-    [Migration("20241222231411_initial")]
+    [Migration("20241223000259_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -41,6 +41,15 @@ namespace Uex.ContactBook.Infra.Migrations
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar(9)");
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Complement")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(11)
@@ -66,12 +75,17 @@ namespace Uex.ContactBook.Infra.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Uf")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId", "Name")
+                    b.HasIndex("UserId", "Cpf")
                         .IsUnique();
 
                     b.ToTable("Contact");

@@ -10,8 +10,11 @@ namespace Uex.ContactBook.Domain.Model.Entities
         public string Email { get; set; }
         public string Cpf { get; set; }
         public string PhoneNumber { get; set; }
-        public string Address { get; set; }
         public string Cep { get; set; }
+        public string Address { get; set; }
+        public string Complement { get; set; }
+        public string City { get; set; }
+        public string Uf { get; set; }
         public string GeographicalPosition { get; set; }
 
         public virtual User User { get; set; }
@@ -37,9 +40,12 @@ namespace Uex.ContactBook.Domain.Model.Entities
             CPF_NOT_INFORMED = "CPF não informado.",
             PHONE_NOT_INFORMED = "Telefone não informado.",
             CEP_NOT_INFORMED = "CEP não informado.",
+            CITY_NOT_INFORMED = "Cidade não informada.",
+            UF_NOT_INFORMED = "UF não informada.",
             EMAIL_INVALID = "Email inválido.",
             PHONE_INVALID = "Telefone inválido. O formato correto é +00(00)000000-0000.",
             CPF_INVALID = "Cpf inválido.",
-            CEP_INVALID = "CEP inválido. O formato correto é 00000-000.";
+            CEP_INVALID = "CEP inválido. O formato correto é 00000-000.",
+            UF_INVALID = "UF inválida.";
     }
 }

@@ -30,7 +30,7 @@ namespace Uex.ContactBook.Application.Services
             if (HasNotifications)
                 return newEntity;
 
-            await NameAlreadyExistsValidation(userId, param.Name);
+            await CpfAlreadyExistsValidation(userId, param.Cpf);
 
             if (HasNotifications)
                 return newEntity;
@@ -45,12 +45,12 @@ namespace Uex.ContactBook.Application.Services
             return result;
         }
 
-        private async Task NameAlreadyExistsValidation(Guid userId, string name)
+        private async Task CpfAlreadyExistsValidation(Guid userId, string cpf)
         {
-            var entity = await _contactRepository.GetByNameAsync(userId, name);
+            var entity = await _contactRepository.GetByCpfAsync(userId, cpf);
 
             if (entity != null)
-                AddValidationFailure(ContactMessage.NAME_ALREADY_EXISTS);
+                AddValidationFailure(ContactMessage.CPF_ALREADY_EXISTS);
         }
 
         private async Task EmailAlreadyExistsValidation(Guid userId, string email)
@@ -75,7 +75,7 @@ namespace Uex.ContactBook.Application.Services
 
         public async Task<Contact> GetByNameAsync(Guid userId, string name)
         {
-            var entity = await _contactRepository.GetByNameAsync(userId, name);
+            var entity = await _contactRepository.GetByCpfAsync(userId, name);
             return entity;
         }
 

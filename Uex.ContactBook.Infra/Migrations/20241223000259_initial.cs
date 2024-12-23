@@ -35,8 +35,11 @@ namespace Uex.ContactBook.Infra.Migrations
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Cpf = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Cep = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Complement = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Uf = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     GeographicalPosition = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
@@ -50,9 +53,9 @@ namespace Uex.ContactBook.Infra.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contact_UserId_Name",
+                name: "IX_Contact_UserId_Cpf",
                 table: "Contact",
-                columns: new[] { "UserId", "Name" },
+                columns: new[] { "UserId", "Cpf" },
                 unique: true);
 
             migrationBuilder.CreateIndex(

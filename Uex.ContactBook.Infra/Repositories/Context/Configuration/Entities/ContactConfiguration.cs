@@ -8,7 +8,7 @@ namespace Uex.ContactBook.Infra.Repositories.Context.Configuration.Entities
         public void Configure(ModelBuilder builder)
         {
             builder.Entity<Contact>()
-                .HasIndex(u => new { u.UserId, u.Name })
+                .HasIndex(u => new { u.UserId, u.Cpf })
                 .IsUnique();
 
             builder.Entity<Contact>()
@@ -41,6 +41,21 @@ namespace Uex.ContactBook.Infra.Repositories.Context.Configuration.Entities
                 .Property(b => b.Address)
                 .IsRequired()
                 .HasMaxLength(255);
+
+            builder.Entity<Contact>()
+                .Property(b => b.Complement)
+                .IsRequired(false)
+                .HasMaxLength(255);
+
+            builder.Entity<Contact>()
+                .Property(b => b.City)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            builder.Entity<Contact>()
+                .Property(b => b.Uf)
+                .IsRequired()
+                .HasMaxLength(2);
 
             builder.Entity<Contact>()
                 .Property(b => b.Cep)

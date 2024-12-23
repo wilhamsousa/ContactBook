@@ -7,7 +7,7 @@ namespace Uex.ContactBook.Domain.Interfaces
     {
         Task<List<Contact>> GetContactAsync(Guid userId);
         Task<Contact> GetContactAsync(Guid userId, Guid id);
-        Task<Contact> GetByNameAsync(Guid userId, string name);
+        Task<Contact> GetByCpfAsync(Guid userId, string cpf);
         Task<Contact> GetByEmailAsync(Guid userId, string email);
     }
 }

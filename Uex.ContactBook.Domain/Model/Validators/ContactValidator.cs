@@ -38,6 +38,19 @@ namespace Uex.ContactBook.Domain.Model.Validators
                 .WithMessage(ContactMessage.PHONE_NOT_INFORMED)
                 .Matches(MyRegex.PhoneFormat)
                 .WithMessage(ContactMessage.PHONE_INVALID);
+
+            RuleFor(entity => entity.City)
+                .NotEmpty()
+                .WithMessage(ContactMessage.CITY_NOT_INFORMED);
+
+            RuleFor(entity => entity.Uf)
+                .NotEmpty()
+                .WithMessage(ContactMessage.UF_NOT_INFORMED)
+                .Must(IsValidUF)
+                .WithMessage(ContactMessage.UF_INVALID);
         }
+
+        private static readonly string[] ValidUFs = new[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" };
+        private bool IsValidUF(string uf) { return Array.Exists(ValidUFs, validUf => validUf.Equals(uf, StringComparison.OrdinalIgnoreCase)); }
     }
 }

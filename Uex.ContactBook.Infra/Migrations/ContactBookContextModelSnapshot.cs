@@ -38,6 +38,15 @@ namespace Uex.ContactBook.Infra.Migrations
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar(9)");
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Complement")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(11)
@@ -63,12 +72,17 @@ namespace Uex.ContactBook.Infra.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Uf")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId", "Name")
+                    b.HasIndex("UserId", "Cpf")
                         .IsUnique();
 
                     b.ToTable("Contact");

@@ -7,6 +7,9 @@
         string PhoneNumber,
         string Address,
         string Cep,
+        string City,
+        string Uf,
+        string? Complement,
         string GeographicalPosition
     );
 }
