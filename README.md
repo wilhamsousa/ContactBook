@@ -4,7 +4,7 @@ Api para avaliação
 - Endpoints de criação de usuário e autenticação OAuth concluído
 - Endpoints de cadastro de contatos concluído
 - Endpoint de acesso ViaCep concluído
-- Projeto de teste unitário concluído
+- Projeto de teste unitário concluído com alguns testes.
 
 
 Front end
@@ -23,7 +23,7 @@ Realize o download do projeto ou realize a clonagem
 - Editar a connection string com o banco de dados na propriedade "DefaultConnection"
 - Marcar o projeto "Uex.ContactBook.Api" como "Default" e executar a aplicação em http. A migração irá criar a base de dados automaticamente.
 
-- Acessar o Swagger ou Postman para testes de integração
+- Acessar o Swagger ou importar workspace no Postman desktop para testes de integração
 - http://localhost:5114/swagger/index.html
 - https://www.postman.com/winter-water-234852/contactbook/overview
 
