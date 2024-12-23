@@ -6,7 +6,7 @@ namespace Uex.ContactBook.Api.Extensions
     {
         public static void AddMapping()
         {
-            RegisterCheckListMap();
+            RegisterMapUser();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Uex.ContactBook.Api.Extensions
 {
     public static partial class MappingConfiguration
     {
-        private static void RegisterCheckListMap()
+        private static void RegisterMapUser()
         {
             TypeAdapterConfig<User, UserGetAllResponse>
                 .NewConfig()
