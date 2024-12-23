@@ -1,5 +1,6 @@
 ﻿using Uex.ContactBook.Application.Services;
 using Uex.ContactBook.Domain.Interfaces;
+using Uex.ContactBook.Domain.Interfaces.External;
 using Uex.ContactBook.Domain.Notification;
 using Uex.ContactBook.Infra.Repositories;
 
@@ -18,6 +19,7 @@ namespace Uex.ContactBook.Api.Extensions.Services
             services.AddScoped<IContactServiceAsync, ContactServiceAsync>();
 
             services.AddScoped<ILoginServiceAsync, LoginServiceAsync>();
+            services.AddScoped<IExternalServiceAsync, ExternalServiceAsync>();
         }
     }
 }
