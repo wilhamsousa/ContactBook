@@ -48,6 +48,7 @@ internal class Program
             app.UseHttpsRedirection();
 
         app.UseRouting();
+        app.UseCors("AllowAllOrigins");
         app.UseAuthorization();
 
         app.MapControllers();

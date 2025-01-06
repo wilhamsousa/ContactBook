@@ -43,11 +43,11 @@ namespace Uex.ContactBook.Application.Services
             var issuer = _configuration["OAuth:Issuer"];
             var audience = _configuration["OAuth:Audience"];
             var secret = _configuration["OAuth:Secret"];
-            var response = await CreateAuthorization(param, user.Id, issuer, audience, secret);
+            var response = await CreateAuthorization(param, user.Id, user.UserName, issuer, audience, secret);
             return response;
         }
 
-        private async Task<LoginResponse> CreateAuthorization(LoginRequest param, Guid userId, string issuer, string audience, string secret)
+        private async Task<LoginResponse> CreateAuthorization(LoginRequest param, Guid userId, string userName, string issuer, string audience, string secret)
         {
             DateTime expiresOnRefreshToken = DateTime.UtcNow.AddDays(15);
             DateTime expiresOnAccessToken = DateTime.UtcNow.AddHours(1);
@@ -73,7 +73,7 @@ namespace Uex.ContactBook.Application.Services
 
             var response = new LoginResponse()
             {
-                UserName = param.UserName,
+                UserName = userName,
                 Email = param.Email,
                 AccessToken = token,
                 CreatedUtcDateTime = DateTime.UtcNow,

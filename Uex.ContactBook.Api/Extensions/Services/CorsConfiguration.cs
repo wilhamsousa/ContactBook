@@ -6,14 +6,13 @@
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("MyPolicy", builder =>
-                    builder.AllowAnyOrigin()
-                    .AllowAnyHeader()
+                options.AddPolicy("AllowAllOrigins", builder =>
+                    builder
+                    .AllowAnyOrigin()
                     .AllowAnyMethod()
+                    .AllowAnyHeader()
                 );
 
-                //builder.WithOrigins("https://localhost:44356").AllowAnyMethod().AllowAnyHeader();
-                //builder.WithOrigins("https://localhost:5001").AllowAnyMethod().AllowAnyHeader();
             });
         }
     }
