@@ -47,7 +47,6 @@ namespace Uex.ContactBook.Api.Controllers
         /// <param name="param"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("create")]
         public async Task<ActionResult> Create(UserCreateRequest param)
         {
             var entity = await _userServiceAsync.CreateAsync(param);

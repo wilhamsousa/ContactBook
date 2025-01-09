@@ -65,7 +65,6 @@ namespace Uex.ContactBook.Api.Controllers
         /// <param name="param"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("create")]
         [Authorize]
         public async Task<ActionResult> Create(ContactCreateRequest param)
         {
@@ -75,6 +74,23 @@ namespace Uex.ContactBook.Api.Controllers
 
             var response = entity.Adapt<ContactCreateResponse>();
             return CreateResult(response);
+        }
+
+        /// <summary>
+        /// Update contact
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        [Route("{id:guid}")]
+        [Authorize]
+        public async Task<ActionResult> Update(Guid id, ContactUpdateRequest param)
+        {
+            await _contactService.UpdateAsync(Authentication.UserId, id, param);
+            if (HasNotifications)
+                return CreateResult("Ao atualizar contato", "Erro ao atualizar contato");
+
+            return CreateResult();
         }
 
         /// <summary>

@@ -30,6 +30,7 @@ namespace Uex.ContactBook.Domain.Model.Entities
     public static class ContactMessage
     {
         public const string
+            ID_IS_EMPTY = "Id não informado.",
             CPF_ALREADY_EXISTS = "CPF já cadastrado.",
             NAME_ALREADY_EXISTS = "Nome já cadastrado.",
             EMAIL_ALREADY_EXISTS = "Email já cadastrado.",

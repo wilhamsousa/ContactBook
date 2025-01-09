@@ -9,6 +9,7 @@ namespace Uex.ContactBook.Domain.Interfaces
         Task<IEnumerable<Contact>> GetAsync(Guid userId);
         Task<Contact> GetByNameAsync(Guid userId, string name);
         Task<Contact> CreateAsync(Guid userId, ContactCreateRequest entity);
+        Task UpdateAsync(Guid userId, Guid id, ContactUpdateRequest entity);
         Task DeleteAsync(Guid userId, Guid id);        
     }
 }
