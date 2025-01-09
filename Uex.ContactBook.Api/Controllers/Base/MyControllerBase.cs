@@ -75,7 +75,7 @@ namespace Uex.ContactBook.Api.Controllers.Base
                 {
                     Title = errorTitle,
                     Status = ((int)HttpStatusCode.BadRequest),
-                    Detail =  errors.Count() == 1 ? errors.FirstOrDefault() : "Multiple erros have occurred.",
+                    Detail =  errors.FirstOrDefault(),
                     Instance = Request.Path,
                     Extensions = dictionary
                 };
