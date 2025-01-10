@@ -11,8 +11,8 @@ Front end
 - https://github.com/wilhamsousa/ContactBookSite
 
 Obs: Ainda estou fazendo o frontend, mas algumas funções estão disponíveis
-- O login está funcional se tiver um usuário cadastrado via postman, pois faltou a tela para cadastrado de usuário
-- O cadastro de contatos está listando os contatos inseridos via postman, pois faltou a tela para cadastro de contatos.
+- O login está funcional.
+- O cadastro de contatos está funcional. Falta a integração viacep e ao maps no front.
 
 🚀 Começando
 Realize o download do projeto ou realize a clonagem
