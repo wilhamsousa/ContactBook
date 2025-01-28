@@ -4,7 +4,8 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "cronis.vehiclecontrol.api": "StartDebugging"
+        "cronis.vehiclecontrol.api": "StartDebugging",
+        "uex.contactbook.api": "StartDebugging"
       }
     }
   }

@@ -13,7 +13,7 @@ namespace Uex.ContactBook.Api.Extensions.Services
                         options.IncludeExceptionDetails = (ctx, ex) =>
                         {
                             var env = ctx.RequestServices.GetRequiredService<IHostEnvironment>();
-                            return env.IsDevelopment() || env.IsStaging();
+                            return env.IsDevelopment() || env.IsEnvironment("Docker") || env.IsStaging();
                         };
 
                         options.MapToStatusCode<NotImplementedException>(StatusCodes.Status501NotImplemented);

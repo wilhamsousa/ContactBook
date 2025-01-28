@@ -1,0 +1,36 @@
+services:
+  db-sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: uex.contactbook.mssql
+    ports: 
+      - 1433:1433
+    environment:
+      - "ACCEPT_EULA=Y"
+      - "MSSQL_SA_PASSWORD=S@cr#t1_01"
+      - "MSSQL_PID=Evaluation"
+    networks:
+      - live-network
+    volumes:
+      - ./data:/var/opt/mssql/data
+      - ./log:/var/opt/mssql/log
+      - ./secrets:/var/opt/mssql/secrets
+
+  uex.contactbook.api:
+    image: uex.contactbook.api
+    container_name: uex.contactbook.api
+    build:
+      context: .
+      dockerfile: dockerfile-api
+    ports: 
+      - 8080:8080
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+    networks:
+      - live-network
+    depends_on: 
+      - db-sqlserver
+
+networks:
+  live-network:
+    driver: bridge
+

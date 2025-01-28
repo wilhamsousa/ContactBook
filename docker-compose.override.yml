@@ -1,0 +1,7 @@
+services:
+  uex.contactbook.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+    ports:
+      - "8080"
