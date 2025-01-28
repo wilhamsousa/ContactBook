@@ -17,10 +17,11 @@ RUN dotnet publish "Uex.ContactBook.Api.csproj" -c $BUILD_CONFIGURATION -o /app/
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
 WORKDIR /app
-EXPOSE 8180
-EXPOSE 8181
+EXPOSE 8080
+EXPOSE 8081
 
 ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_HTTP_PORTS=8080
 
 FROM base AS final
 WORKDIR /app

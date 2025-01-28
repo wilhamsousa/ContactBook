@@ -16,14 +16,6 @@ EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CA3B49AD-6906-47C9-9F68-5151BB0AC1E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{88EAE1C2-C09F-47A0-A789-9ADFA50078B5}"
-	ProjectSection(SolutionItems) = preProject
-		dockerfile-api = dockerfile-api
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EA5AACF2-EEF5-492A-8B6F-58E1EFE81E05}"
-	ProjectSection(SolutionItems) = preProject
-		dockerfile-api = dockerfile-api
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
