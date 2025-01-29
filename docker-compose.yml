@@ -1,5 +1,5 @@
 services:
-  db-sqlserver:
+  uex.contactbook.mssql:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: uex.contactbook.mssql
     ports: 
@@ -29,8 +29,20 @@ services:
     networks:
       - live-network
     depends_on: 
-      - db-sqlserver
+      - uex.contactbook.mssql
 
+  uex.contactbook.site:
+    image: uex.contactbook.site
+    container_name: uex.contactbook.site
+    build:
+      context: ..\ContactBookSite
+      dockerfile: Dockerfile
+    ports: 
+      - 4400:8083
+    networks:
+      - live-network
+    depends_on: 
+      - uex.contactbook.api
 networks:
   live-network:
     driver: bridge
