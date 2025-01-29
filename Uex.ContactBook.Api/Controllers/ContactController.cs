@@ -106,5 +106,14 @@ namespace Uex.ContactBook.Api.Controllers
             await _contactService.DeleteAsync(Authentication.UserId, id);
             return CreateResult();
         }
+
+        [HttpPost]
+        [Route("send-email")]
+        [Authorize]
+        public virtual async Task<ActionResult> SendEmail(ContactSendEmailMessageRequest param)
+        {
+            await _contactService.SendEmail(Authentication.UserId, param);
+            return CreateResult();
+        }
     }
 }

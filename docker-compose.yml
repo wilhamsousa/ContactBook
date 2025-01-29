@@ -15,6 +15,17 @@ services:
       - ./log:/var/opt/mssql/log
       - ./secrets:/var/opt/mssql/secrets
 
+  uex.contactbook.rabbitmq:
+    image: rabbitmq:3-management
+    container_name: uex.contactbook.rabbitmq
+    ports: 
+      - "5672:5672"   # RabbitMQ default port
+      - "15672:15672" # RabbitMQ management plugin port
+    hostname: uex.contactbook.rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: uexmanager
+      RABBITMQ_DEFAULT_PASS: S@cr#t1_01
+
   uex.contactbook.api:
     image: uex.contactbook.api
     container_name: uex.contactbook.api
@@ -30,6 +41,8 @@ services:
       - live-network
     depends_on: 
       - uex.contactbook.mssql
+      - uex.contactbook.rabbitmq
+    restart: always
 
   uex.contactbook.site:
     image: uex.contactbook.site

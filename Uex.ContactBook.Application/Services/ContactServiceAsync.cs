@@ -150,6 +150,26 @@ namespace Uex.ContactBook.Application.Services
             }
 
             await _contactRepository.DeleteAsync(id);
-        }        
+        }
+
+        public async Task SendEmail(Guid userId, ContactSendEmailMessageRequest param)
+        {
+            var entities = await GetAsync(userId);
+            if (entities == null)
+            {
+                AddValidationFailure(ContactMessage.CONTACT_NOTFOUND);
+                return;
+            }
+
+            foreach (var item in entities)
+            {
+                SendEmail(item.Email, param.message);
+            }
+        }
+
+        private void SendEmail(string email, string message)
+        {
+            Console.WriteLine(email, message);
+        }
     }
 }

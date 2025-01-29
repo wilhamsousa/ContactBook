@@ -10,6 +10,7 @@ namespace Uex.ContactBook.Domain.Interfaces
         Task<Contact> GetByNameAsync(Guid userId, string name);
         Task<Contact> CreateAsync(Guid userId, ContactCreateRequest entity);
         Task UpdateAsync(Guid userId, Guid id, ContactUpdateRequest entity);
-        Task DeleteAsync(Guid userId, Guid id);        
+        Task DeleteAsync(Guid userId, Guid id);
+        Task SendEmail(Guid userId, ContactSendEmailMessageRequest param);
     }
 }
