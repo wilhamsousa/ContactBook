@@ -4,19 +4,25 @@ using Uex.ContactBook.Domain.Model.Entities;
 using Uex.ContactBook.Domain.Notification;
 using Mapster;
 using Uex.ContactBook.Domain.Model.DTOs.Contact;
+using RabbitMQ.Client;
+using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace Uex.ContactBook.Application.Services
 {
     public class ContactServiceAsync : ServiceBase, IContactServiceAsync
     {
         private readonly IContactRepositoryAsync _contactRepository;
+        private IConfiguration _configuration;
 
         public ContactServiceAsync(
             NotificationContext notificationContext,
-            IContactRepositoryAsync contactRepository
+            IContactRepositoryAsync contactRepository,
+            IConfiguration configuration
         ) : base(notificationContext)
         {
             _contactRepository = contactRepository;
+            _configuration = configuration;
         }
 
         public async Task<Contact> CreateAsync(Guid userId, ContactCreateRequest param)
@@ -167,9 +173,36 @@ namespace Uex.ContactBook.Application.Services
             }
         }
 
-        private void SendEmail(string email, string message)
+        private async void SendEmail(string email, string message)
         {
             Console.WriteLine(email, message);
+
+            var factory = new ConnectionFactory()
+            {
+                HostName = _configuration.GetSection("Rabbitmq:HostName").Value,
+                Port = Convert.ToInt16(_configuration.GetSection("Rabbitmq:Port").Value ?? "0"),
+                UserName = _configuration.GetSection("Rabbitmq:Username").Value,
+                Password = _configuration.GetSection("Rabbitmq:Password").Value
+            };
+
+            var connection = await factory.CreateConnectionAsync();
+            string queueName = "queueName";
+
+            var channel = await connection.CreateChannelAsync();
+            await channel.QueueDeclareAsync(
+                queue: queueName,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null
+            );
+
+            var body = Encoding.UTF8.GetBytes(message);
+
+            await channel.BasicPublishAsync(
+                exchange: string.Empty,
+                routingKey: queueName,
+                body: body
+            );
         }
     }
 }
