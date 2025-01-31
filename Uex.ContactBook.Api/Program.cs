@@ -3,7 +3,6 @@ using Uex.ContactBook.Api.Extensions;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.EntityFrameworkCore;
 using Uex.ContactBook.Api.Extensions.Services;
-using System.Text;
 
 internal class Program
 {

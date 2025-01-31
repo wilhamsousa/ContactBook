@@ -4,23 +4,25 @@ using Uex.ContactBook.Domain.Notification;
 using Microsoft.Extensions.Configuration;
 using Uex.ContactBook.Domain.Interfaces.External;
 using Uex.ContactBook.Domain.Model.DTOs.External;
-using System;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
+using System.Text;
 
 namespace Uex.ContactBook.Application.Services
 {
     public class ExternalServiceAsync : ServiceBase, IExternalServiceAsync
     {
-        private readonly IUserRepositoryAsync _userRepository;
         private readonly IConfiguration _configuration;
 
         public ExternalServiceAsync(
-            NotificationContext notificationContext
+            NotificationContext notificationContext,
+            IConfiguration configuration
         ) : base(notificationContext)
         {
+            _configuration = configuration;
         }
 
-        public virtual async Task<ViaCepResponse> GetViaCep(string cep)
+        public async Task<ViaCepResponse> GetViaCep(string cep)
         {
             string url = $"https://viacep.com.br/ws/{cep}/json/";
             var client = new HttpClient();
@@ -31,6 +33,37 @@ namespace Uex.ContactBook.Application.Services
 
             var response = JsonConvert.DeserializeObject<ViaCepResponse>(responseStr);
             return response;
+        }
+
+        public async Task RabbitMqProduce(string queueName, string message)
+        {
+            var body = Encoding.UTF8.GetBytes(message);
+
+            var factory = new ConnectionFactory()
+            {
+                HostName = _configuration.GetSection("Rabbitmq:HostName").Value,
+                Port = Convert.ToInt16(_configuration.GetSection("Rabbitmq:Port").Value ?? "0"),
+                UserName = _configuration.GetSection("Rabbitmq:Username").Value,
+                Password = _configuration.GetSection("Rabbitmq:Password").Value
+            };
+
+
+            var connection = await factory.CreateConnectionAsync();
+
+            var channel = await connection.CreateChannelAsync();
+            await channel.QueueDeclareAsync(
+                queue: queueName,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null
+            );
+
+
+            await channel.BasicPublishAsync(
+                exchange: string.Empty,
+                routingKey: queueName,
+                body: body
+            );
         }
     }
 }

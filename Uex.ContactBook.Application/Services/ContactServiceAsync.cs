@@ -146,7 +146,7 @@ namespace Uex.ContactBook.Application.Services
             return entity;
         }
 
-        public virtual async Task DeleteAsync(Guid userId, Guid id)
+        public async Task DeleteAsync(Guid userId, Guid id)
         {
             var entity = await GetAsync(userId, id);
             if (entity == null)
@@ -156,53 +156,6 @@ namespace Uex.ContactBook.Application.Services
             }
 
             await _contactRepository.DeleteAsync(id);
-        }
-
-        public async Task SendEmail(Guid userId, ContactSendEmailMessageRequest param)
-        {
-            var entities = await GetAsync(userId);
-            if (entities == null)
-            {
-                AddValidationFailure(ContactMessage.CONTACT_NOTFOUND);
-                return;
-            }
-
-            foreach (var item in entities)
-            {
-                SendEmail(item.Email, param.message);
-            }
-        }
-
-        private async void SendEmail(string email, string message)
-        {
-            Console.WriteLine(email, message);
-
-            var factory = new ConnectionFactory()
-            {
-                HostName = _configuration.GetSection("Rabbitmq:HostName").Value,
-                Port = Convert.ToInt16(_configuration.GetSection("Rabbitmq:Port").Value ?? "0"),
-                UserName = _configuration.GetSection("Rabbitmq:Username").Value,
-                Password = _configuration.GetSection("Rabbitmq:Password").Value
-            };
-
-            var connection = await factory.CreateConnectionAsync();
-            string queueName = "queueName";
-
-            var channel = await connection.CreateChannelAsync();
-            await channel.QueueDeclareAsync(
-                queue: queueName,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null
-            );
-
-            var body = Encoding.UTF8.GetBytes(message);
-
-            await channel.BasicPublishAsync(
-                exchange: string.Empty,
-                routingKey: queueName,
-                body: body
-            );
-        }
+        }        
     }
 }

@@ -63,7 +63,7 @@ namespace Uex.ContactBook.Api.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Authorize]
-        public virtual async Task<ActionResult> Delete()
+        public async Task<ActionResult> Delete()
         {
             await _userServiceAsync.DeleteAsync(Authentication.UserId);
             return CreateResult();

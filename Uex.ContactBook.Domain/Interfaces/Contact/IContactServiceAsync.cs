@@ -1,4 +1,5 @@
 ﻿using Uex.ContactBook.Domain.Model.DTOs.Contact;
+using Uex.ContactBook.Domain.Model.DTOs.Login;
 using Uex.ContactBook.Domain.Model.Entities;
 
 namespace Uex.ContactBook.Domain.Interfaces
@@ -11,6 +12,5 @@ namespace Uex.ContactBook.Domain.Interfaces
         Task<Contact> CreateAsync(Guid userId, ContactCreateRequest entity);
         Task UpdateAsync(Guid userId, Guid id, ContactUpdateRequest entity);
         Task DeleteAsync(Guid userId, Guid id);
-        Task SendEmail(Guid userId, ContactSendEmailMessageRequest param);
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Uex.ContactBook.Domain.Model.DTOs.Login;
+using Uex.ContactBook.Domain.Interfaces.External;
 
 namespace Uex.ContactBook.Application.Services
 {
@@ -14,15 +15,18 @@ namespace Uex.ContactBook.Application.Services
     {
         private readonly IUserRepositoryAsync _userRepository;
         private readonly IConfiguration _configuration;
+        private readonly IExternalServiceAsync _externalService;
 
         public LoginServiceAsync(
-            NotificationContext notificationContext,
+            NotificationContext notificationContext,            
             IUserRepositoryAsync userRepository,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IExternalServiceAsync externalService
         ) : base(notificationContext)
         {
-            _userRepository = userRepository;
             _configuration = configuration;
+            _userRepository = userRepository;
+            _externalService = externalService;            
         }
 
         public virtual async Task<LoginResponse> LoginAsync(LoginRequest param)
@@ -58,7 +62,7 @@ namespace Uex.ContactBook.Application.Services
             };
 
             var roles = Enumerable.Empty<string>();
-            
+
             byte[] bytes = Encoding.UTF8.GetBytes(secret);
             var secretBase64 = Convert.ToBase64String(bytes);
 
@@ -103,6 +107,11 @@ namespace Uex.ContactBook.Application.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public async Task ResetEmail(ResetEmailRequest param)
+        {
+            _externalService.RabbitMqProduce("ResetEmail", param.Email);
         }
     }
 }

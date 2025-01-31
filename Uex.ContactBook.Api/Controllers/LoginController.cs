@@ -36,5 +36,14 @@ namespace Uex.ContactBook.Api.Controllers
             var response = await _loginServiceAsync.LoginAsync(param);
             return CreateResult(response);
         }
+
+        [HttpPost]
+        [Route("reset-email")]
+        [Authorize]
+        public async Task<ActionResult> ResetEmail(ResetEmailRequest param)
+        {
+            await _loginServiceAsync.ResetEmail(param);
+            return CreateResult();
+        }
     }
 }

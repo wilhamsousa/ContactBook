@@ -6,5 +6,6 @@ namespace Uex.ContactBook.Domain.Interfaces.External
     public interface IExternalServiceAsync
     {        
         Task<ViaCepResponse> GetViaCep(string cep);
+        Task RabbitMqProduce(string queueName, string message);
     }
 }

@@ -5,5 +5,6 @@ namespace Uex.ContactBook.Domain.Interfaces
     public interface ILoginServiceAsync
     {
         Task<LoginResponse> LoginAsync(LoginRequest param);
+        Task ResetEmail(ResetEmailRequest param);
     }
 }
