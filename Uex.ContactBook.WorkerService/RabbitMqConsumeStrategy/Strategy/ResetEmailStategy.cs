@@ -1,6 +1,7 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Threading.Channels;
 using Uex.ContactBook.Domain.Interfaces;
 using Uex.ContactBook.Infra.Repositories;
 using Uex.ContactBook.Worker.RabbitMqConsumeStrategy.Interface;
@@ -26,8 +27,10 @@ namespace Uex.ContactBook.Worker.RabbitMqConsumeStrategy.Strategy
             consumer.ReceivedAsync += (model, ea) =>
                 {
                     var body = ea.Body.ToArray();
-                    string message = Encoding.UTF8.GetString(body);
+                    string message = Encoding.UTF8.GetString(body);                    
+
                     var user = _userRepositoryAsync.GetByEmailAsync(message);
+                    _channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false); //aqui ack
 #if DEBUG
                     Console.WriteLine("Rabbitmq - Received {0}", message);
 #endif

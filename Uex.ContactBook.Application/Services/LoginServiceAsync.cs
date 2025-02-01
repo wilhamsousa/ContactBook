@@ -110,8 +110,8 @@ namespace Uex.ContactBook.Application.Services
         }
 
         public async Task ResetEmail(ResetEmailRequest param)
-        {
-            _externalService.RabbitMqProduce("ResetEmail", param.Email);
+        {            
+            await _externalService.RabbitMqProduce("ResetEmail", param.Email);
         }
     }
 }

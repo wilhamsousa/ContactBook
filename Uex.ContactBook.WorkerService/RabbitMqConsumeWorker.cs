@@ -40,21 +40,20 @@ namespace Uex.ContactBook.Worker
         {
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-
             using (IServiceScope scope = _serviceProvider.CreateScope()) 
             {
                 var userRepositoryAsync = scope.ServiceProvider.GetRequiredService<IUserRepositoryAsync>();
+
                 var _rabbitMqResetEmail = new RabbitMqContext(new ResetEmailStategy(_channel, userRepositoryAsync));
                 var consumer = _rabbitMqResetEmail.GetConsumer();
                 string queueName = _rabbitMqResetEmail.GetQueueName();
-                _channel.BasicConsumeAsync(
+                await _channel.BasicConsumeAsync(
                     queue: queueName,
                     autoAck: false,
                     consumer: consumer
                 );
             
             }
-
 
             //while (!stoppingToken.IsCancellationRequested)
             //{

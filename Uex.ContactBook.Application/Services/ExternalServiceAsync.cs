@@ -37,8 +37,6 @@ namespace Uex.ContactBook.Application.Services
 
         public async Task RabbitMqProduce(string queueName, string message)
         {
-            var body = Encoding.UTF8.GetBytes(message);
-
             var factory = new ConnectionFactory()
             {
                 HostName = _configuration.GetSection("Rabbitmq:HostName").Value,
@@ -47,10 +45,10 @@ namespace Uex.ContactBook.Application.Services
                 Password = _configuration.GetSection("Rabbitmq:Password").Value
             };
 
-
             var connection = await factory.CreateConnectionAsync();
-
             var channel = await connection.CreateChannelAsync();
+
+            var body = Encoding.UTF8.GetBytes(message);
             await channel.QueueDeclareAsync(
                 queue: queueName,
                 exclusive: false,
@@ -58,12 +56,13 @@ namespace Uex.ContactBook.Application.Services
                 arguments: null
             );
 
-
             await channel.BasicPublishAsync(
                 exchange: string.Empty,
                 routingKey: queueName,
                 body: body
             );
+
+            Console.WriteLine($"Message Published {message}");
         }
     }
 }
