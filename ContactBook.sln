@@ -17,7 +17,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{88EAE1C2-C09F-47A0-A789-9ADFA50078B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uex.ContactBook.Worker", "Uex.ContactBook.WorkerService\Uex.ContactBook.Worker.csproj", "{DE5E1764-FDB3-48BD-8FE6-5EC3E41DFE3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uex.ContactBook.Worker", "Uex.ContactBook.Worker\Uex.ContactBook.Worker.csproj", "{46A2C9FD-512B-484D-B861-3E4B54CCE399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,10 @@ Global
 		{CA3B49AD-6906-47C9-9F68-5151BB0AC1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA3B49AD-6906-47C9-9F68-5151BB0AC1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA3B49AD-6906-47C9-9F68-5151BB0AC1E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE5E1764-FDB3-48BD-8FE6-5EC3E41DFE3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE5E1764-FDB3-48BD-8FE6-5EC3E41DFE3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE5E1764-FDB3-48BD-8FE6-5EC3E41DFE3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE5E1764-FDB3-48BD-8FE6-5EC3E41DFE3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46A2C9FD-512B-484D-B861-3E4B54CCE399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46A2C9FD-512B-484D-B861-3E4B54CCE399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46A2C9FD-512B-484D-B861-3E4B54CCE399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46A2C9FD-512B-484D-B861-3E4B54CCE399}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

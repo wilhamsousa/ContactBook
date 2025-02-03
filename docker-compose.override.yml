@@ -4,3 +4,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
     ports:
       - "8080"
+  uex.contactbook.worker:
+    environment:
+      - DOTNET_ENVIRONMENT=Docker
+    ports:
+      - "8085:8085"
+      - "8380:8380" 

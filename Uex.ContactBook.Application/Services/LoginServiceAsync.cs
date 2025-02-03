@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Uex.ContactBook.Domain.Model.DTOs.Login;
 using Uex.ContactBook.Domain.Interfaces.External;
+using Uex.ContactBook.Domain.Model.Consts;
 
 namespace Uex.ContactBook.Application.Services
 {
@@ -111,7 +112,7 @@ namespace Uex.ContactBook.Application.Services
 
         public async Task ResetEmail(ResetEmailRequest param)
         {            
-            await _externalService.RabbitMqProduce("ResetEmail", param.Email);
+            await _externalService.RabbitMqProduce(RabbitmqConstants.ResetEmailQueue, param.Email);
         }
     }
 }

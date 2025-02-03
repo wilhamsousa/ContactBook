@@ -49,20 +49,41 @@ namespace Uex.ContactBook.Application.Services
             var channel = await connection.CreateChannelAsync();
 
             var body = Encoding.UTF8.GetBytes(message);
+
+            await SendMessageByQueue(queueName, channel, body);
+            //await SendMessageByExchange(queueName, channel, body);
+
+            Console.WriteLine($"Message Published {message}");
+        }
+
+        private static async Task SendMessageByQueue(string queueName, IChannel channel, byte[] body)
+        {
             await channel.QueueDeclareAsync(
-                queue: queueName,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null
-            );
+                            queue: queueName,
+                            exclusive: false,
+                            autoDelete: false,
+                            arguments: null
+                        );
 
             await channel.BasicPublishAsync(
                 exchange: string.Empty,
                 routingKey: queueName,
                 body: body
             );
+        }
 
-            Console.WriteLine($"Message Published {message}");
+        private static async Task SendMessageByExchange(string exchangeName, IChannel channel, byte[] body)
+        {
+            await channel.ExchangeDeclareAsync(
+                            exchange: exchangeName,
+                            type: ExchangeType.Fanout
+                        );
+
+            await channel.BasicPublishAsync(
+                exchange: exchangeName,
+                routingKey: string.Empty,
+                body: body
+            );
         }
     }
 }

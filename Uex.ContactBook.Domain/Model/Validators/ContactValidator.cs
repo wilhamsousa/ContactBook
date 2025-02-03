@@ -24,7 +24,7 @@ namespace Uex.ContactBook.Domain.Model.Validators
             RuleFor(entity => entity.Cep)
                 .NotEmpty()
                 .WithMessage(ContactMessage.CEP_NOT_INFORMED)
-                .Matches(MyRegex.CepFormat)
+                .Matches(MyRegexConstants.CepFormat)
                 .WithMessage(ContactMessage.CEP_INVALID);
 
             RuleFor(entity => entity.Cpf)
@@ -36,7 +36,7 @@ namespace Uex.ContactBook.Domain.Model.Validators
             RuleFor(entity => entity.PhoneNumber)
                 .NotEmpty()
                 .WithMessage(ContactMessage.PHONE_NOT_INFORMED)
-                .Matches(MyRegex.PhoneFormat)
+                .Matches(MyRegexConstants.PhoneFormat)
                 .WithMessage(ContactMessage.PHONE_INVALID);
 
             RuleFor(entity => entity.City)

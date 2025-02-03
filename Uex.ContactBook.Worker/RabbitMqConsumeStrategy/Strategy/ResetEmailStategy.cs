@@ -39,8 +39,5 @@ namespace Uex.ContactBook.Worker.RabbitMqConsumeStrategy.Strategy
 
             return consumer;
         }
-
-        public string GetQueueName() =>
-            "ResetEmail";
     }
 }

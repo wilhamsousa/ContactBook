@@ -1,6 +1,6 @@
 ﻿namespace Uex.ContactBook.Domain.Model.Consts
 {
-    public struct MyRegex
+    public struct MyRegexConstants
     {
         public const string
             CepFormat = @"^\d{5}-\d{3}$",

@@ -18,13 +18,17 @@ services:
   uex.contactbook.rabbitmq:
     image: rabbitmq:3-management
     container_name: uex.contactbook.rabbitmq
-    ports: 
-      - "5672:5672"   # RabbitMQ default port
-      - "15672:15672" # RabbitMQ management plugin port
+    tty: true
     hostname: uex.contactbook.rabbitmq
+    ports: 
+      - "15672:15672" # RabbitMQ management plugin port
+      - "5672:5672"   # RabbitMQ default port
     environment:
       RABBITMQ_DEFAULT_USER: uexmanager
       RABBITMQ_DEFAULT_PASS: S@cr#t1_01
+      RABBITMQ_DEFAULT_VHOST: "/"
+    networks:
+    - live-network
 
   uex.contactbook.api:
     image: uex.contactbook.api
@@ -37,6 +41,25 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_HTTP_PORTS: 8080
+    networks:
+      - live-network
+    depends_on: 
+      - uex.contactbook.mssql
+      - uex.contactbook.rabbitmq
+    restart: always
+
+  uex.contactbook.worker:
+    image: uex.contactbook.worker
+    container_name: uex.contactbook.worker
+    build:
+      context: .
+      dockerfile: .\Uex.Contactbook.Worker\Dockerfile
+    ports: 
+      - 8085:8085
+      - 8380:8380
+    environment:
+      DOTNET_ENVIRONMENT: Production
+      ASPNETCORE_HTTP_PORTS: 8085
     networks:
       - live-network
     depends_on: 
@@ -59,4 +82,4 @@ services:
 networks:
   live-network:
     driver: bridge
-
+    
