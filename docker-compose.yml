@@ -47,6 +47,14 @@ services:
       - uex.contactbook.mssql
       - uex.contactbook.rabbitmq
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"    # Limit container to 50% of one CPU core
+          memory: "2G"   # Limit memory usage to 2GB
+        reservations:
+          cpus: "0.1"     # Reserve 10% of one CPU core
+          memory: "256M"   # Reserve 256 MB of memory
 
   uex.contactbook.worker:
     image: uex.contactbook.worker
